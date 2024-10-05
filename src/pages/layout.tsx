@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google'
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { NotificationProvider } from '@/contexts/notification-context'
-import { CartProvider } from '@/contexts/cart-context'
 import './globals.css'
+import { NotificationProvider } from '../context/notification'
+import { CartProvider } from '../context/cart'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
