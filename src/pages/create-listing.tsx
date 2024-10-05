@@ -1,4 +1,4 @@
-import CreateListingForm from '@/forms/CreateListingForm'
+import CreateListingForm from '@/components/forms/CreateListingForm'
 
 export default function CreateListingPage() {
   return (
