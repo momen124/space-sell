@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-2">About</h3>
             <ul className="space-y-2">
-              <li><Link href="/about" className="text-muted-foreground hover:text-foreground">About Us</Link></li>
+              <li><Link href="/AboutUS" className="text-muted-foreground hover:text-foreground">About Us</Link></li>
               <li><Link href="/careers" className="text-muted-foreground hover:text-foreground">Careers</Link></li>
               <li><Link href="/press" className="text-muted-foreground hover:text-foreground">Press</Link></li>
             </ul>
