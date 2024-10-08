@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/footer';
 
 async function getFeatureListings() {
   // In a real app, this would fetch from an API or database
@@ -31,6 +33,8 @@ export default function Home() {
   }
 
   return (
+    <>
+    <Header/>
     <div className="container mx-auto px-4">
       <h1 className="text-4xl font-bold text-center my-8">Welcome to Space Sell</h1>
 
@@ -58,5 +62,7 @@ export default function Home() {
         </Button>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
