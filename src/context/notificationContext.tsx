@@ -1,42 +1,34 @@
-'use client'
+'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react'
-import { AlertCircle, CheckCircle, XCircle } from 'lucide-react'
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { AlertCircle, CheckCircle, XCircle } from 'lucide-react';
 
-type NotificationType = 'success' | 'error' | 'info'
+type NotificationType = 'success' | 'error' | 'info';
 
 interface Notification {
-  id: number
-  type: NotificationType
-  message: string
+  id: number;
+  type: NotificationType;
+  message: string;
 }
 
 interface NotificationContextType {
-  notifications: Notification[]
-  addNotification: (type: NotificationType, message: string) => void
-  removeNotification: (id: number) => void
+  notifications: Notification[];
+  addNotification: (type: NotificationType, message: string) => void;
+  removeNotification: (id: number) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
+const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
-export const useNotification = () => {
-  const context = useContext(NotificationContext)
-  if (!context) {
-    throw new Error('useNotification must be used within a NotificationProvider')
-  }
-  return context
-}
-
-export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [notifications, setNotifications] = useState<Notification[]>([])
+export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const addNotification = useCallback((type: NotificationType, message: string) => {
-    setNotifications((prev) => [...prev, { id: Date.now(), type, message }])
-  }, [])
+    setNotifications((prev) => [...prev, { id: Date.now(), type, message }]);
+  }, []);
 
   const removeNotification = useCallback((id: number) => {
-    setNotifications((prev) => prev.filter((notification) => notification.id !== id))
-  }, [])
+    setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+  }, []);
 
   return (
     <NotificationContext.Provider value={{ notifications, addNotification, removeNotification }}>
@@ -65,5 +57,13 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ))}
       </div>
     </NotificationContext.Provider>
-  )
-}
+  );
+};
+
+export const useNotification = () => {
+  const context = useContext(NotificationContext);
+  if (!context) {
+    throw new Error('useNotification must be used within a NotificationProvider');
+  }
+  return context;
+};
