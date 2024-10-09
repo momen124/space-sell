@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useNotification } from '@/context/notification'
+import { useNotification } from '@/context/notificationContext'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
