@@ -17,7 +17,8 @@ interface NotificationContextType {
   removeNotification: (id: number) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+// Export NotificationContext here
+export const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
 export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -50,6 +51,7 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({ childr
             <button
               onClick={() => removeNotification(notification.id)}
               className="ml-4 text-sm font-medium"
+              aria-label={`Dismiss ${notification.type} notification`}
             >
               Dismiss
             </button>

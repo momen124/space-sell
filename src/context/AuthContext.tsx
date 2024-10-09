@@ -1,20 +1,29 @@
+// AuthContext.tsx
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  // Add more user-specific fields as needed
+}
+
 interface AuthContextType {
-  user: any;
-  login: (user: any) => void;
+  user: User | null;
+  login: (user: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// Exporting AuthContext so it can be used in other modules
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = useCallback((user: any) => {
+  const login = useCallback((user: User) => {
     setUser(user);
   }, []);
 
@@ -22,7 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null);
   }, []);
 
-  const isAuthenticated = !!user;
+  const isAuthenticated = Boolean(user);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
@@ -31,6 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
+// This is already fine; you can keep it as is.
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
