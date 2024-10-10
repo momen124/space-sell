@@ -78,7 +78,7 @@ export function LoginForm() {
   render={({ field }) => (
     <FormItem>
       <FormLabel>Password</FormLabel>
-      <FormDescription>Your password must be at least 8 characters.</FormDescription> {/* أضف هذا السطر */}
+      <FormDescription>Your password must be at least 8 characters.</FormDescription> 
       <FormControl>
         <Input type="password" placeholder="Enter your password" {...field} />
       </FormControl>
