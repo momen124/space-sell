@@ -35,10 +35,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center my-8">Welcome to Space Sell</h1>
 
       <div className="flex justify-center mb-8">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="text" placeholder="Search for items..." />
-          <Button type="submit">Search</Button>
-        </div>
+    
       </div>
 
       <h2 className="text-2xl font-semibold mb-4">Featured Listings</h2>
