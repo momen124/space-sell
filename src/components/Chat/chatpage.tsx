@@ -1,4 +1,3 @@
-// ChatPage.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -63,8 +62,7 @@ const ChatPage: React.FC = () => {
     if (selectedConversationId) {
       // Send the message to the backend
       axios.post(`/api/conversations/${selectedConversationId}/messages`, { content: data.message })
-        .then((response) => {
-          // Optionally, update the conversation state here
+        .then(() => {
           toast({
             title: "Message sent!",
             description: "Your message has been sent successfully.",
