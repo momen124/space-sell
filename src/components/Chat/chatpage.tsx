@@ -1,4 +1,5 @@
-'use client'
+// ChatPage.tsx
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -7,27 +8,15 @@ import ChatWindow from './ChatWindow';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Button } from "@/components/ui/button"; // Assuming you have a custom button component
-import { toast } from "@/components/ui/use-toast"; // Ensure this path is correct
-
-interface Message {
-  id: string;
-  content: string;
-  sender: string;
-  timestamp: Date;
-}
-
-interface Conversation {
-  id: string;
-  name: string;
-  messages: Message[];
-  avatar: string;
-}
+import { Button } from "@/components/ui/button"; // Ensure this path is correct
+import { useToast } from "@/components/ui/use-toast"; // Ensure this path is correct
+import { Conversation } from './types'; // Ensure this path is correct
 
 const ChatPage: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const toast = useToast(); // Use the toast function
 
   const formSchema = z.object({
     message: z.string().min(1, 'Message cannot be empty'),
@@ -40,21 +29,33 @@ const ChatPage: React.FC = () => {
   useEffect(() => {
     // Fetch conversations from the backend
     axios.get('/api/conversations')
-      .then((response: { data: Conversation[] }) => {
+      .then((response) => {
         setConversations(response.data);
         if (response.data.length > 0) {
           setSelectedConversationId(response.data[0].id);
         }
       })
-      .catch((error: any) => console.error('Error fetching conversations:', error));
+      .catch((error: unknown) => {
+        if (axios.isAxiosError(error)) {
+          console.error('Error fetching conversations:', error.message);
+        } else {
+          console.error('An unexpected error occurred:', error);
+        }
+      });
   }, []);
 
   useEffect(() => {
     if (selectedConversationId) {
       // Fetch messages for the selected conversation
       axios.get(`/api/conversations/${selectedConversationId}`)
-        .then((response: { data: Conversation }) => setSelectedConversation(response.data))
-        .catch((error: any) => console.error('Error fetching conversation:', error));
+        .then((response) => setSelectedConversation(response.data))
+        .catch((error: unknown) => {
+          if (axios.isAxiosError(error)) {
+            console.error('Error fetching conversation:', error.message);
+          } else {
+            console.error('An unexpected error occurred:', error);
+          }
+        });
     }
   }, [selectedConversationId]);
 
@@ -70,7 +71,13 @@ const ChatPage: React.FC = () => {
           });
           reset(); // Clear the input field
         })
-        .catch((error) => console.error('Error sending message:', error));
+        .catch((error: unknown) => {
+          if (axios.isAxiosError(error)) {
+            console.error('Error sending message:', error.message);
+          } else {
+            console.error('An unexpected error occurred:', error);
+          }
+        });
     }
   };
 
