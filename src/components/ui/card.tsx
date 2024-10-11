@@ -2,13 +2,18 @@ import React, { ReactNode } from 'react';
 
 // Define the props for the Card component
 interface CardProps {
+  className?: string; // Optional className prop
   children: ReactNode; // Specify that children can be any valid React node
 }
 
 // Card component
-export const Card: React.FC<CardProps> = ({ children }) => (
-  <div className="card">{children}</div>
-);
+export const Card: React.FC<CardProps> = ({ className, children }) => {
+  return (
+    <div className={`p-4 bg-white rounded-lg shadow-md ${className}`}>
+      {children}
+    </div>
+  );
+};
 
 // Define the props for CardContent
 export const CardContent: React.FC<CardProps> = ({ children }) => (
