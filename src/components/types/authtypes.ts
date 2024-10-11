@@ -43,4 +43,13 @@ export interface HowItWorksItem {
   description: string;
 }
 
+declare module '@/components/ui/badge' {
+
+  export interface BadgeProps {
+    variant?: 'default' | 'warning' | 'destructive';
+  }
+
+  export const Badge: React.FC<BadgeProps>;
+}
+
   
