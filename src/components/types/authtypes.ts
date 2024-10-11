@@ -94,7 +94,6 @@ export interface Message {
   content: string;
   isUser: boolean; // Indicates if the message is from the user or the other party
 }
-
 export interface Conversation {
   id: string;
   title: string; // You can change this based on your needs
