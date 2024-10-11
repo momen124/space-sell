@@ -52,4 +52,23 @@ declare module '@/components/ui/badge' {
   export const Badge: React.FC<BadgeProps>;
 }
 
+export interface User {
+  id: string
+  name: string
+  avatar: string
+}
+
+export interface ChatRoom {
+  id: string
+  participants: User[]
+  lastMessage?: Message
+}
+
+export interface Message {
+  id: string
+  roomId: string
+  sender: User
+  content: string
+  timestamp: Date
+}
   
