@@ -63,120 +63,124 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
         <CardTitle>Filters</CardTitle> {/* Title for the filters card */}
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Form with spacing */}
-            {/* Category field */}
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel> {/* Label for category */}
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a category" /> {/* Placeholder for category */}
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="All Categories">All Categories</SelectItem>
-                      <SelectItem value="Electronics">Electronics</SelectItem>
-                      <SelectItem value="Vehicles">Vehicles</SelectItem>
-                      <SelectItem value="Real Estate">Real Estate</SelectItem>
-                      <SelectItem value="Furniture">Furniture</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            />
-            {/* Price fields */}
-            <div className="flex space-x-2">
-              <FormField
-                control={form.control}
-                name="minPrice"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Min Price</FormLabel> {/* Label for min price */}
-                    <FormControl>
-                      <Input 
-                        type="number" 
-                        placeholder="Min" 
-                        {...field} 
-                        value={field.value ?? ''} // Convert null/undefined to empty string
-                        onChange={e => {
-                          const value = e.target.value; // Get the input value
-                          field.onChange(value ? Number(value) : null); // Convert value to number or null
-                        }} 
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+      <Form {...form}>
+  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    {/* Category Field */}
+    <FormField
+      control={form.control}
+      name="category"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Category</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              <SelectItem value="All Categories">All Categories</SelectItem>
+              <SelectItem value="Electronics">Electronics</SelectItem>
+              <SelectItem value="Vehicles">Vehicles</SelectItem>
+              <SelectItem value="Real Estate">Real Estate</SelectItem>
+              <SelectItem value="Furniture">Furniture</SelectItem>
+            </SelectContent>
+          </Select>
+        </FormItem>
+      )}
+    />
+    {/* Min and Max Price Fields */}
+    <div className="flex space-x-2">
+      <FormField
+        control={form.control}
+        name="minPrice"
+        render={({ field }) => (
+          <FormItem className="flex-1">
+            <FormLabel>Min Price</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                placeholder="Min"
+                {...field}
+                value={field.value ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(value ? Number(value) : null);
+                }}
               />
-              <FormField
-                control={form.control}
-                name="maxPrice"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Max Price</FormLabel> {/* Label for max price */}
-                    <FormControl>
-                      <Input 
-                        type="number" 
-                        placeholder="Max" 
-                        {...field} 
-                        value={field.value ?? ''} // Convert null/undefined to empty string
-                        onChange={e => {
-                          const value = e.target.value; // Get the input value
-                          field.onChange(value ? Number(value) : null); // Convert value to number or null
-                        }} 
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+            </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="maxPrice"
+        render={({ field }) => (
+          <FormItem className="flex-1">
+            <FormLabel>Max Price</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                placeholder="Max"
+                {...field}
+                value={field.value ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(value ? Number(value) : null);
+                }}
               />
-            </div>
-            {/* Location field */}
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location</FormLabel> {/* Label for location */}
-                  <FormControl>
-                    <Input 
-                      placeholder="Enter location" 
-                      {...field} 
-                      value={field.value ?? ''} // Convert null/undefined to empty string
-                    /> {/* Input for location */}
-                  </FormControl>
-                </FormItem>
-              )}
+            </FormControl>
+          </FormItem>
+        )}
+      />
+    </div>
+    {/* Other Fields */}
+    {/* Location Field */}
+    <FormField
+      control={form.control}
+      name="location"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Location</FormLabel>
+          <FormControl>
+            <Input
+              placeholder="Enter location"
+              {...field}
+              value={field.value ?? ""}
             />
-            {/* Date posted field */}
-            <FormField
-              control={form.control}
-              name="datePosted"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date Posted</FormLabel> {/* Label for date posted */}
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select date range" /> {/* Placeholder for date range */}
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Any time">Any time</SelectItem>
-                      <SelectItem value="Last 24 hours">Last 24 hours</SelectItem>
-                      <SelectItem value="Last 7 days">Last 7 days</SelectItem>
-                      <SelectItem value="Last 30 days">Last 30 days</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full">Apply Filters</Button> {/* Submit button */}
-          </form>
-        </Form>
+          </FormControl>
+        </FormItem>
+      )}
+    />
+    {/* Date Posted Field */}
+    <FormField
+      control={form.control}
+      name="datePosted"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Date Posted</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder="Select date range" />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              <SelectItem value="Any time">Any time</SelectItem>
+              <SelectItem value="Last 24 hours">Last 24 hours</SelectItem>
+              <SelectItem value="Last 7 days">Last 7 days</SelectItem>
+              <SelectItem value="Last 30 days">Last 30 days</SelectItem>
+            </SelectContent>
+          </Select>
+        </FormItem>
+      )}
+    />
+    <Button type="submit" className="w-full">
+      Apply Filters
+    </Button>
+  </form>
+</Form>
+
       </CardContent>
     </Card>
   )
