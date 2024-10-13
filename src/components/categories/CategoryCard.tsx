@@ -1,4 +1,6 @@
+// src/components/CategoryCard.tsx
 import React from "react";
+import Link from "next/link";
 
 interface CategoryCardProps {
   category: {
@@ -10,10 +12,12 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
-    <div className="border p-4 rounded-lg shadow-md hover:bg-gray-100 cursor-pointer">
-      <i className={`${category.icon} text-3xl mb-2`}></i>
-      <h3 className="text-lg font-semibold">{category.name}</h3>
-    </div>
+    <Link href={category.link} passHref>
+      <div className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer text-center">
+        <i className={`${category.icon} text-2xl mb-2`} />
+        <h3 className="text-lg font-semibold">{category.name}</h3>
+      </div>
+    </Link>
   );
 };
 
