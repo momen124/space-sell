@@ -1,9 +1,9 @@
 // src/components/FeaturedListings.tsx
-
 import React from "react";
 import FeaturedListingCard from "./FeaturedListingCard ";
 
 interface Listing {
+    id: string;  // Add id property
     title: string;
     price: string;
     location: string;
@@ -13,6 +13,7 @@ interface Listing {
 
 const featuredListings: Listing[] = [
     {
+        id: "3",
         title: "Samsung Galaxy S21",
         price: "$799",
         location: "Manhattan, NY",
@@ -20,6 +21,7 @@ const featuredListings: Listing[] = [
         link: "/listing/3",
     },
     {
+        id: "4",
         title: "Leather Sofa",
         price: "$499",
         location: "Brooklyn, NY",
@@ -27,6 +29,7 @@ const featuredListings: Listing[] = [
         link: "/listing/4",
     },
     {
+        id: "5",
         title: "2018 Honda Accord",
         price: "$22,000",
         location: "Queens, NY",
@@ -41,7 +44,7 @@ const FeaturedListings: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-4">Featured Listings</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {featuredListings.map((listing) => (
-                    <FeaturedListingCard key={listing.title} listing={listing} />
+                    <FeaturedListingCard key={listing.id} listing={listing} />
                 ))}
             </div>
         </section>

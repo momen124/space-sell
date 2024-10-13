@@ -2,19 +2,30 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-async function getUser(id: string) {
-  // In a real app, this would fetch from an API or database
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  joinDate: string;
+}
+
+interface Listing {
+  id: number;
+  title: string;
+  price: number;
+}
+
+// Simulated async data fetcher for user details
+async function getUser(id: string): Promise<User | null> {
   const users = [
     { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
   ]
   
-  const user = users.find(u => u.id === id)
-  if (!user) return null
-  return user
+  return users.find(u => u.id === id) || null
 }
 
-async function getUserListings(userId: string) {
-  // In a real app, this would fetch from an API or database
+// Simulated async data fetcher for user listings
+async function getUserListings(userId: string): Promise<Listing[]> {
   return [
     { id: 1, title: "Spaceship X2000", price: 999999 },
     { id: 2, title: "Moon Rover", price: 50000 },
@@ -46,10 +57,12 @@ export default async function UserProfilePage({ params }: { params: { id: string
       <h2 className="text-2xl font-semibold mb-4">Listings</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {listings.map((listing) => (
-          <Link href={`/listing/${listing.id}`} key={listing.id} className="border p-4 rounded-lg hover:shadow-md transition-shadow">
-            <img src="/placeholder.svg?height=100&width=100" alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
-            <h3 className="font-semibold">{listing.title}</h3>
-            <p className="text-lg font-bold text-green-600">${listing.price.toLocaleString()}</p>
+          <Link href={`/listing/${listing.id}`} key={listing.id}>
+            <div className="border p-4 rounded-lg hover:shadow-md transition-shadow">
+              <img src="/placeholder.svg?height=100&width=100" alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
+              <h3 className="font-semibold">{listing.title}</h3>
+              <p className="text-lg font-bold text-green-600">${listing.price.toLocaleString()}</p>
+            </div>
           </Link>
         ))}
       </div>
