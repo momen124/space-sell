@@ -1,16 +1,11 @@
+
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/footer'
+import { CartProvider } from '@/context/CartContext'
+import { NotificationProvider } from '@/context/notificationContext'
 import { Inter } from 'next/font/google'
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { NotificationProvider } from '@/contexts/notification-context'
-import { CartProvider } from '@/contexts/cart-context'
-import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Space Sell',
-  description: 'Buy and sell space items',
-}
 
 export default function RootLayout({
   children,

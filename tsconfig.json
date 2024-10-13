@@ -13,8 +13,9 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./src",
-  "paths": {
-    "@/*": ["*"]
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,11 +1,9 @@
-import Api from './api';
+import { Api } from "./api";
 
 class AuthService extends Api {
-
-
   async login(email: string, password: string) {
     try {
-      const response = await this.api.post('/auth/login', { email, password });
+      const response = await this.api.post("/auth/login", { email, password });
       return response.data;
     } catch (error) {
       throw error;
@@ -14,7 +12,11 @@ class AuthService extends Api {
 
   async register(email: string, password: string, name: string) {
     try {
-      const response = await this.api.post('/auth/register', { email, password, name });
+      const response = await this.api.post("/auth/register", {
+        email,
+        password,
+        name,
+      });
       return response.data;
     } catch (error) {
       throw error;
@@ -22,4 +24,5 @@ class AuthService extends Api {
   }
 }
 
-export default new AuthService();
+const authService = new AuthService();
+export { authService, AuthService };
