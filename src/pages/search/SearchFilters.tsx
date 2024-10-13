@@ -102,6 +102,7 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
                         type="number" 
                         placeholder="Min" 
                         {...field} 
+                        value={field.value ?? ''} // Convert null/undefined to empty string
                         onChange={e => {
                           const value = e.target.value; // Get the input value
                           field.onChange(value ? Number(value) : null); // Convert value to number or null
@@ -122,6 +123,7 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
                         type="number" 
                         placeholder="Max" 
                         {...field} 
+                        value={field.value ?? ''} // Convert null/undefined to empty string
                         onChange={e => {
                           const value = e.target.value; // Get the input value
                           field.onChange(value ? Number(value) : null); // Convert value to number or null
@@ -140,7 +142,11 @@ export default function SearchFilters({ onFilterChange }: SearchFiltersProps) {
                 <FormItem>
                   <FormLabel>Location</FormLabel> {/* Label for location */}
                   <FormControl>
-                    <Input placeholder="Enter location" {...field} /> {/* Input for location */}
+                    <Input 
+                      placeholder="Enter location" 
+                      {...field} 
+                      value={field.value ?? ''} // Convert null/undefined to empty string
+                    /> {/* Input for location */}
                   </FormControl>
                 </FormItem>
               )}
