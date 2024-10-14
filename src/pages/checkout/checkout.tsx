@@ -78,73 +78,26 @@ export default function Checkout() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-purple-50 to-indigo-50 shadow-xl">
-      <CardHeader className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-lg">
-        <CardTitle className="text-2xl font-bold">Checkout</CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700">Full Name</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input placeholder="John Doe" {...field} className="pl-10 bg-white" />
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700">Email</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input type="email" placeholder="john@example.com" {...field} className="pl-10 bg-white" />
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700">Address</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input placeholder="123 Space Street" {...field} className="pl-10 bg-white" />
-                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex space-x-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-2xl mx-auto shadow-2xl">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+          <CardTitle className="text-3xl font-bold text-center">Checkout</CardTitle>
+        </CardHeader>
+        <CardContent className="p-8">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-6">
                 <FormField
                   control={form.control}
-                  name="city"
+                  name="fullName"
                   render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel className="text-sm font-medium text-gray-700">City</FormLabel>
+                    <FormItem>
+                      <FormLabel className="flex items-center text-lg">
+                        <User className="w-5 h-5 mr-2" />
+                        Full Name
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="New York" {...field} className="bg-white" />
+                        <Input placeholder="John Doe" {...field} className="rounded-md border-gray-300 shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -152,71 +105,121 @@ export default function Checkout() {
                 />
                 <FormField
                   control={form.control}
-                  name="zipCode"
+                  name="email"
                   render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel className="text-sm font-medium text-gray-700">ZIP Code</FormLabel>
+                    <FormItem>
+                      <FormLabel className="flex items-center text-lg">
+                        <Mail className="w-5 h-5 mr-2" />
+                        Email
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="12345" {...field} className="bg-white" />
+                        <Input type="email" placeholder="john@example.com" {...field} className="rounded-md border-gray-300 shadow-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center text-lg">
+                        <MapPin className="w-5 h-5 mr-2" />
+                        Address
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="123 Space Street" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex space-x-4">
+                  <FormField
+                    control={form.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel className="text-lg">City</FormLabel>
+                        <FormControl>
+                          <Input placeholder="New York" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="zipCode"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel className="text-lg">ZIP Code</FormLabel>
+                        <FormControl>
+                          <Input placeholder="12345" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="cardNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700">Card Number</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input placeholder="1234 5678 9012 3456" {...field} className="pl-10 bg-white" />
-                        <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex space-x-4">
-                <FormField
-                  control={form.control}
-                  name="expirationDate"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel className="text-sm font-medium text-gray-700">Expiration Date</FormLabel>
-                      <FormControl>
-                        <Input placeholder="MM/YY" {...field} className="bg-white" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cvv"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel className="text-sm font-medium text-gray-700">CVV</FormLabel>
-                      <FormControl>
-                        <Input placeholder="123" {...field} className="bg-white" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="pt-6 border-t border-gray-200">
+                <h3 className="text-lg font-semibold mb-4 flex items-center">
+                  <CreditCard className="w-5 h-5 mr-2" />
+                  Payment Details
+                </h3>
+                <div className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="cardNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-lg">Card Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="1234 5678 9012 3456" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex space-x-4">
+                    <FormField
+                      control={form.control}
+                      name="expirationDate"
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormLabel className="text-lg">Expiration Date</FormLabel>
+                          <FormControl>
+                            <Input placeholder="MM/YY" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="cvv"
+                      render={({ field }) => (
+                        <FormItem className="flex-1">
+                          <FormLabel className="text-lg">CVV</FormLabel>
+                          <FormControl>
+                            <Input placeholder="123" {...field} className="rounded-md border-gray-300 shadow-sm" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
-              Place Order
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+              <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
+                Place Order
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
