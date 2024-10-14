@@ -103,7 +103,7 @@ export default function CheckoutPage() {
               ))}
               <div className="border-t pt-4 mt-4">
                 <div className="flex justify-between mb-2">
-                  <p>Subtotal</p>
+                  <p>Subtotal</p>a
                   <p>${subtotal.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-between mb-2">
