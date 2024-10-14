@@ -2,39 +2,30 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-export async function getServerSideProps(context: { params: { id: string } }) {
-  const { id } = context.params;
-
-  const user = await getUser(id);
-  if (!user) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const listings = await getUserListings(id);
-
-  return {
-    props: {
-      user,
-      listings,
-    },
-  };
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  joinDate: string;
 }
 
-// Mock function simulating fetching data from an API or database
-async function getUser(id: string) {
+interface Listing {
+  id: number;
+  title: string;
+  price: number;
+}
+
+// Simulated async data fetcher for user details
+async function getUser(id: string): Promise<User | null> {
   const users = [
     { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
   ];
   
-  const user = users.find((u) => u.id === id);
-  if (!user) return null;
-  return user;
+  return users.find(u => u.id === id) || null
 }
 
-// Mock function simulating fetching data from an API or database
-async function getUserListings(userId: string) {
+// Simulated async data fetcher for user listings
+async function getUserListings(userId: string): Promise<Listing[]> {
   return [
     { id: 1, title: "Spaceship X2000", price: 999999 },
     { id: 2, title: "Moon Rover", price: 50000 },
@@ -59,13 +50,16 @@ export default function UserProfilePage({ user, listings }: { user: any; listing
       <h2 className="text-2xl font-semibold mb-4">Listings</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {listings.map((listing) => (
-          <Link href={`/listing/${listing.id}`} key={listing.id} className="border p-4 rounded-lg hover:shadow-md transition-shadow">
-            <img src="/placeholder.svg?height=100&width=100" alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
-            <h3 className="font-semibold">{listing.title}</h3>
-            <p className="text-lg font-bold text-green-600">${listing.price.toLocaleString()}</p>
+          <Link href={`/listing/${listing.id}`} key={listing.id}>
+            <div className="border p-4 rounded-lg hover:shadow-md transition-shadow">
+              <img src="/placeholder.svg?height=100&width=100" alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
+              <h3 className="font-semibold">{listing.title}</h3>
+              <p className="text-lg font-bold text-green-600">${listing.price.toLocaleString()}</p>
+            </div>
           </Link>
         ))}
       </div>
     </div>
   );
 }
+

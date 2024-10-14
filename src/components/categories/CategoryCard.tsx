@@ -1,30 +1,24 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Card, CardHeader, CardTitle } from "@/components/ui/card" // Removed CardContent
+// src/components/CategoryCard.tsx
+import React from "react";
+import Link from "next/link";
 
 interface CategoryCardProps {
-  title: string
-  imageUrl: string
-  slug: string
+  category: {
+    name: string;
+    icon: string;
+    link: string;
+  };
 }
 
-export default function CategoryCard({ title, imageUrl, slug }: CategoryCardProps) {
+const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
-    <Link href={`/categories/${slug}`}>
-      <Card className="overflow-hidden hover:shadow-lg transition duration-300">
-        <div className="relative w-full h-48">
-          <Image
-            src={imageUrl}
-            alt={title}
-            fill
-            className="object-cover"
-          />
-        </div>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-      </Card>
+    <Link href={category.link} passHref>
+      <div className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer text-center">
+        <i className={`${category.icon} text-2xl mb-2`} />
+        <h3 className="text-lg font-semibold">{category.name}</h3>
+      </div>
     </Link>
-  )
-}
+  );
+};
+
+export default CategoryCard;

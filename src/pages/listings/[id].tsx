@@ -1,56 +1,71 @@
-import { GetServerSideProps } from 'next';
-import { Button } from "@/components/ui/button";
-import { notFound } from 'next/navigation';
+// pages/listing/[id].tsx
 
-type Listing = {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  seller: string;
-  image: string;
-};
-
-// Simulated async data fetcher
-async function getListing(id: string): Promise<Listing | null> {
-  const listings = [
-    { id: "1", title: "Spaceship X2000", price: 999999, description: "A state-of-the-art spaceship with warp drive capabilities.", seller: "Elon Musk", image: "/placeholder.svg?height=400&width=600" },
-    { id: "2", title: "Moon Rover", price: 50000, description: "Explore the lunar surface with this robust moon rover.", seller: "NASA", image: "/placeholder.svg?height=400&width=600" },
-  ];
-
-  const listing = listings.find(l => l.id === id);
-  return listing ? listing : null;
-}
+import ListingDescription from "@/components/listings/ListingDescription";
+import ListingDetails from "@/components/listings/ListingDetails";
+import ListingGallery from "@/components/listings/ListingGallery";
+import RelatedListings from "@/components/listings/RelatedListings";
+import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const listing = await getListing(params?.id as string);
+  const listingId = params?.id as string;
+  const listing = {
+    id: listingId,
+    title: 'iPhone 12 Pro Max',
+    price: '$999',
+    location: 'New York, NY',
+    postDate: '2 days ago',
+    seller: { name: 'John Doe', avatar: '/path/to/avatar.jpg' },
+    images: [
+      'https://picsum.photos/800/600?random=1',
+      'https://picsum.photos/800/600?random=2',
+      'https://picsum.photos/800/600?random=3',
+    ],
+    description:
+      'The iPhone 12 Pro Max is the largest iPhone in Apple’s 2020 lineup. It features a 6.7-inch Super Retina XDR OLED display...',
+    features: [
+      '6.7-inch Super Retina XDR OLED display',
+      'A14 Bionic chip',
+      '5G capable',
+      'Pro camera system (12MP ultra wide, wide, and telephoto)',
+      'LiDAR Scanner for improved AR experiences',
+      'Face ID for secure authentication',
+      'iOS 14',
+    ],
+  };
 
-  if (!listing) {
-    return { notFound: true }; // Redirect to 404 if no listing found
-  }
+  const relatedListings = [
+    { id: '1', title: 'iPhone 11 Pro', price: '$699', location: 'Brooklyn, NY', imgSrc: 'https://picsum.photos/300/200?random=4' },
+    { id: '2', title: 'Samsung Galaxy S21', price: '$799', location: 'Manhattan, NY', imgSrc: 'https://picsum.photos/300/200?random=5' },
+    { id: '3', title: 'Google Pixel 5', price: '$649', location: 'Queens, NY', imgSrc: 'https://picsum.photos/300/200?random=6' },
+  ];
 
   return {
     props: {
       listing,
+      relatedListings,
     },
   };
 };
 
-export default function ListingPage({ listing }: { listing: Listing }) {
+const ListingDetailPage = ({ listing, relatedListings }) => {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <img src={listing.image} alt={listing.title} className="w-full rounded-lg shadow-lg" />
+      <div className="flex flex-col md:flex-row md:space-x-8">
+        <div className="md:w-2/3">
+          <ListingGallery images={listing.images} />
+          <ListingDescription description={listing.description} features={listing.features} />
         </div>
-        <div>
-          <h1 className="text-3xl font-bold mb-4">{listing.title}</h1>
-          <p className="text-2xl font-bold text-green-600 mb-4">${listing.price.toLocaleString()}</p>
-          <p className="text-gray-700 mb-4">{listing.description}</p>
-          <p className="text-sm text-gray-500 mb-4">Seller: {listing.seller}</p>
-          <Button className="w-full">Contact Seller</Button>
-        </div>
+        <ListingDetails
+          title={listing.title}
+          price={listing.price}
+          location={listing.location}
+          postDate={listing.postDate}
+          seller={listing.seller}
+        />
       </div>
+      <RelatedListings listings={relatedListings} />
     </div>
   );
-}
+};
+
+export default ListingDetailPage;
