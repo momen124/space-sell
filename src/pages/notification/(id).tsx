@@ -15,17 +15,17 @@ import {
 } from "@/components/ui/card" // Ensure the import path is correct
 import { Badge } from "@/components/ui/badge" // Ensure the import path is correct
 
-// Defining the Notification interface
+// Defining the Notification interface to describe the shape of notification objects
 interface Notification {
   id: string
   title: string
   message: string
   date: string
   read: boolean
-  type: 'info' | 'warning' | 'error'
+  type: 'info' | 'warning' | 'error' // Notification types
 }
 
-// Mock notifications data
+// Mock notifications data for demonstration
 const mockNotifications: Notification[] = [
   { id: '1', title: 'New Message', message: 'You have a new message from John Doe. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', date: '2023-06-01', read: false, type: 'info' },
   { id: '2', title: 'Order Shipped', message: 'Your order #12345 has been shipped. It is expected to arrive within 3-5 business days. You can track your package using the tracking number provided in your email.', date: '2023-05-31', read: true, type: 'info' },
@@ -33,10 +33,10 @@ const mockNotifications: Notification[] = [
   { id: '4', title: 'Account Security', message: 'Unusual activity has been detected on your account. For your security, we recommend changing your password immediately and enabling two-factor authentication if you haven\'t already.', date: '2023-05-29', read: false, type: 'error' },
 ]
 
-// Main functional component for Notification Detail Page
+// Main functional component for the Notification Detail Page
 export default function NotificationDetailPage() {
   const params = useParams() // Get parameters from the URL
-  const router = useRouter() // Initialize the router
+  const router = useRouter() // Initialize the router for navigation
   const [notification, setNotification] = useState<Notification | null>(null) // State to store the selected notification
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function NotificationDetailPage() {
 
   // If no notification is found, display a message
   if (!notification) {
-    return <div className="text-red-500">Notification not found</div>
+    return <div className="text-red-500"></div> // Error message if notification is not found
   }
 
   return (
@@ -66,7 +66,8 @@ export default function NotificationDetailPage() {
             <CardTitle className="text-2xl text-blue-900">{notification.title}</CardTitle>
             {/* Badge indicating the type of notification */}
             <Badge variant={notification.type === 'error' ? 'destructive' : notification.type === 'warning' ? 'warning' : 'default'}>
-              {notification.type}
+              {/* Use the correct prop to display the type */}
+              {notification.type} {/* This is the inner content of the Badge */}
             </Badge>
           </div>
           {/* Description showing the date of the notification */}
