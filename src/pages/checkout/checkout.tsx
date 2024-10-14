@@ -14,9 +14,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
 import { CreditCard, Mail, MapPin, User } from 'lucide-react'
+
+import Header from "@/components/layout/Header"
+import Footer from "@/components/layout/Footer"
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -80,9 +83,7 @@ export default function Checkout() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-2xl mx-auto shadow-2xl">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
-          <CardTitle className="text-3xl font-bold text-center">Checkout</CardTitle>
-        </CardHeader>
+        <Header />
         <CardContent className="p-8">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -219,6 +220,7 @@ export default function Checkout() {
             </form>
           </Form>
         </CardContent>
+        <Footer />
       </Card>
     </div>
   )
