@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle } from 'lucide-react'
 
 export function Header() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -68,6 +68,9 @@ export function Header() {
                 <AvatarFallback>
                   <User className="h-4 w-4" />
                 </AvatarFallback>
+                <AvatarFallback>
+                  <User className="h-4 w-4" />
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
@@ -90,5 +93,6 @@ export function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }
+

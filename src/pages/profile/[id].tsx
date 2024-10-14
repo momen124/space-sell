@@ -19,7 +19,7 @@ interface Listing {
 async function getUser(id: string): Promise<User | null> {
   const users = [
     { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
-  ]
+  ];
   
   return users.find(u => u.id === id) || null
 }
@@ -29,17 +29,10 @@ async function getUserListings(userId: string): Promise<Listing[]> {
   return [
     { id: 1, title: "Spaceship X2000", price: 999999 },
     { id: 2, title: "Moon Rover", price: 50000 },
-  ]
+  ];
 }
 
-export default async function UserProfilePage({ params }: { params: { id: string } }) {
-  const user = await getUser(params.id)
-  if (!user) {
-    notFound()
-  }
-
-  const listings = await getUserListings(params.id)
-
+export default function UserProfilePage({ user, listings }: { user: any; listings: any[] }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center mb-8">
@@ -67,5 +60,6 @@ export default async function UserProfilePage({ params }: { params: { id: string
         ))}
       </div>
     </div>
-  )
+  );
 }
+
