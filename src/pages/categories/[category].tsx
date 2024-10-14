@@ -1,7 +1,7 @@
 // pages/categories/[category].tsx
 import { useRouter } from 'next/router';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const CategoryPage = () => {
     const router = useRouter();
