@@ -44,7 +44,7 @@ export default function NotificationsPage() {
           <Bell className="mr-2 h-6 w-6 text-blue-900" />
           Notifications
         </h1>
-        <Link href="/notifications/settings">
+        <Link href="/setting/settingPage">
           <Button variant="outline" className="bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-300">
             <Settings className="mr-2 h-4 w-4" />
             Settings

@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle } from 'lucide-react'
+import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle, Bell } from 'lucide-react'
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +30,6 @@ export function Header() {
         <Link href="/" className="flex items-center">
           <Rocket className="h-6 w-6 text-blue-500" />
           <span className="text-xl font-bold">Space Sell</span>
-
         </Link>
         
         {/* Search Bar */}
@@ -50,7 +49,12 @@ export function Header() {
         
         {/* Navigation and Profile Menu */}
         <nav className="flex items-center space-x-4">
-          <Link href="/listings" passHref>
+          <Link href="/notification/notificationpage" passHref>
+            <Button variant="ghost" className="p-2">
+              <Bell className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/checkout/checkoutPage" passHref>
             <Button variant="ghost" className="p-2">
               <ShoppingCart className="h-5 w-5" />
             </Button>
@@ -69,9 +73,6 @@ export function Header() {
                 <AvatarFallback>
                   <User className="h-4 w-4" />
                 </AvatarFallback>
-                <AvatarFallback>
-                  <User className="h-4 w-4" />
-                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
@@ -82,7 +83,7 @@ export function Header() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/settings" className="flex items-center space-x-2">
+                <Link href="/setting/settingPage" className="flex items-center space-x-2">
                   <Settings className="h-4 w-4" />
                 </Link>
               </DropdownMenuItem>
@@ -96,4 +97,3 @@ export function Header() {
     </header>
   );
 }
-
