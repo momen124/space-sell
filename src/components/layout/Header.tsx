@@ -43,6 +43,7 @@ export function Header() {
               className="pl-8"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              required
             />
           </div>
         </form>
