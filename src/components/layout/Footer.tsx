@@ -1,7 +1,9 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Social media icons
+import { Lock, Moon, Sun } from 'lucide-react'; // Additional icons
 import Link from 'next/link';
+import React from 'react'
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white py-10">
       <div className="container mx-auto px-4">
@@ -63,9 +65,17 @@ export function Footer() {
             <Link href="/cookies" className="text-gray-400 hover:text-white text-sm">Cookie Policy</Link>
           </nav>
         </div>
+
+        {/* Additional icons */}
+        <div className="flex items-center justify-between mt-6">
+          <p className="text-sm text-gray-500">© 2024 Your Company</p>
+          <div className="flex items-center space-x-4">
+            <Lock className="w-5 h-5 text-gray-600" />
+            <Sun className="w-5 h-5 text-yellow-400" />
+            <Moon className="w-5 h-5 text-gray-600" />
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
-
-export default Footer;

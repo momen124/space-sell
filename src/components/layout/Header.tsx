@@ -13,8 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Rocket, Search, User } from 'lucide-react'; // Logo icon
-import { FaHome, FaComments, FaUser, FaSignInAlt, FaUserPlus, FaPlus, FaSearch } from 'react-icons/fa'; // Navigation icons including FaSearch
+import { Rocket, Search, User, Bell } from 'lucide-react'; // Logo icon
+import { FaHome, FaComments, FaUser, FaSignInAlt, FaUserPlus, FaPlus, FaSearch } from 'react-icons/fa'; // Navigation icons
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,7 +26,7 @@ export function Header() {
   };
 
   return (
-    <header className="border-b bg-white shadow-md">
+    <header className="bg-white border-b shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Rocket className="h-6 w-6 text-blue-500" /> {/* Logo icon */}
@@ -75,6 +75,13 @@ export function Header() {
             Explore
           </Button>
 
+          {/* Bell icon and User avatar */}
+          <Bell className="w-5 h-5 text-gray-600" />
+          <Avatar className="w-8 h-8">
+            <AvatarImage src="/placeholder.svg?height=100&width=100" alt="User" />
+            <AvatarFallback>AJ</AvatarFallback>
+          </Avatar>
+
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -95,8 +102,12 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
+
+        {/* Settings Header Title */}
+        <div className="flex items-center space-x-4">
+          <h1 className="text-xl font-bold">Settings</h1>
+        </div>
       </div>
     </header>
   );
 }
-
