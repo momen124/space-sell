@@ -2,33 +2,46 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-async function getUser(id: string) {
-  // In a real app, this would fetch from an API or database
-  const users = [
-    { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
-  ]
-  
-  const user = users.find(u => u.id === id)
-  if (!user) return null
-  return user
+export async function getServerSideProps(context: { params: { id: string } }) {
+  const { id } = context.params;
+
+  const user = await getUser(id);
+  if (!user) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const listings = await getUserListings(id);
+
+  return {
+    props: {
+      user,
+      listings,
+    },
+  };
 }
 
+// Mock function simulating fetching data from an API or database
+async function getUser(id: string) {
+  const users = [
+    { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
+  ];
+  
+  const user = users.find((u) => u.id === id);
+  if (!user) return null;
+  return user;
+}
+
+// Mock function simulating fetching data from an API or database
 async function getUserListings(userId: string) {
-  // In a real app, this would fetch from an API or database
   return [
     { id: 1, title: "Spaceship X2000", price: 999999 },
     { id: 2, title: "Moon Rover", price: 50000 },
-  ]
+  ];
 }
 
-export default async function UserProfilePage({ params }: { params: { id: string } }) {
-  const user = await getUser(params.id)
-  if (!user) {
-    notFound()
-  }
-
-  const listings = await getUserListings(params.id)
-
+export default function UserProfilePage({ user, listings }: { user: any; listings: any[] }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center mb-8">
@@ -54,5 +67,5 @@ export default async function UserProfilePage({ params }: { params: { id: string
         ))}
       </div>
     </div>
-  )
+  );
 }

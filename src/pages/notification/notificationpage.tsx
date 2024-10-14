@@ -3,17 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Bell, Settings, Trash2 } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@radix-ui/react-scroll-area'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import Badge from '@/components/ui/badge'
 
 interface Notification {
   id: string
