@@ -25,11 +25,11 @@ export function Header() {
   }
 
   return (
-    <header className="border-b">
+    <header className="border-b bg-white shadow">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <Rocket className="h-6 w-6" />
-          <span className="text-xl font-bold">Space Sell</span>
+          <Rocket className="h-6 w-6 text-blue-500" />
+          <span className="text-xl font-bold text-gray-800">Space Sell</span>
         </Link>
         <form onSubmit={handleSearch} className="flex-1 max-w-sm mx-4">
           <div className="relative">
@@ -40,6 +40,7 @@ export function Header() {
               className="pl-8"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              required
             />
           </div>
         </form>
