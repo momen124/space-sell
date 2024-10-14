@@ -1,6 +1,6 @@
 // pages/categories/index.tsx
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 import CategoryList from '../../components/categories/CategoryList';
 
 const CategoriesPage = () => {
