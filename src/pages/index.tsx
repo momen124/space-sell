@@ -3,9 +3,9 @@ import React from "react";
 import HeroSection from "../components/hero/HeroSection";
 import CategoriesSection from "../components/categories/CategoriesSection";
 import HowItWorks from "../components/howItWorks/HowItWorks";
-import FeaturedListings from "@/components/listings/FeaturedListings";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import FeaturedListings from "@/components/listings/Featured Listings";
 
 
 const HomePage: React.FC = () => {

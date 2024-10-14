@@ -1,4 +1,4 @@
-// pages/listing/[id].tsx
+// pages/listings/[id].tsx
 
 import ListingDescription from "@/components/listings/ListingDescription";
 import ListingDetails from "@/components/listings/ListingDetails";
@@ -6,9 +6,37 @@ import ListingGallery from "@/components/listings/ListingGallery";
 import RelatedListings from "@/components/listings/RelatedListings";
 import { GetServerSideProps } from "next";
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+interface Listing {
+  id: string;
+  title: string;
+  price: string;
+  location: string;
+  postDate: string;
+  seller: {
+    name: string;
+    avatar: string;
+  };
+  images: string[];
+  description: string;
+  features: string[];
+}
+
+interface RelatedListing {
+  id: string;
+  title: string;
+  price: string;
+  location: string;
+  imgSrc: string;
+}
+
+interface ListingDetailPageProps {
+  listing: Listing;
+  relatedListings: RelatedListing[];
+}
+
+export const getServerSideProps: GetServerSideProps<ListingDetailPageProps> = async ({ params }) => {
   const listingId = params?.id as string;
-  const listing = {
+  const listing: Listing = {
     id: listingId,
     title: 'iPhone 12 Pro Max',
     price: '$999',
@@ -33,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     ],
   };
 
-  const relatedListings = [
+  const relatedListings: RelatedListing[] = [
     { id: '1', title: 'iPhone 11 Pro', price: '$699', location: 'Brooklyn, NY', imgSrc: 'https://picsum.photos/300/200?random=4' },
     { id: '2', title: 'Samsung Galaxy S21', price: '$799', location: 'Manhattan, NY', imgSrc: 'https://picsum.photos/300/200?random=5' },
     { id: '3', title: 'Google Pixel 5', price: '$649', location: 'Queens, NY', imgSrc: 'https://picsum.photos/300/200?random=6' },
@@ -47,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-const ListingDetailPage = ({ listing, relatedListings }) => {
+const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ listing, relatedListings }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row md:space-x-8">

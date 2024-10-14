@@ -1,36 +1,54 @@
 // src/components/FeaturedListings.tsx
-
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import FeaturedListingCard from "./FeaturedListingCard ";
 
 interface Listing {
-  id: string;
-  title: string;
-  price: string;
-  image: string;
+    id: string;  // Add id property
+    title: string;
+    price: string;
+    location: string;
+    imgSrc: string;
+    link: string;
 }
 
-interface FeaturedListingsProps {
-  featuredListings: Listing[];
-}
+const featuredListings: Listing[] = [
+    {
+        id: "3",
+        title: "Samsung Galaxy S21",
+        price: "$799",
+        location: "Manhattan, NY",
+        imgSrc: "https://picsum.photos/300/200?random=1",
+        link: "/listing/3",
+    },
+    {
+        id: "4",
+        title: "Leather Sofa",
+        price: "$499",
+        location: "Brooklyn, NY",
+        imgSrc: "https://picsum.photos/300/200?random=2",
+        link: "/listing/4",
+    },
+    {
+        id: "5",
+        title: "2018 Honda Accord",
+        price: "$22,000",
+        location: "Queens, NY",
+        imgSrc: "https://picsum.photos/300/200?random=3",
+        link: "/listing/5",
+    },
+];
 
-const FeaturedListings: React.FC<FeaturedListingsProps> = ({ featuredListings }) => {
-  return (
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-6">Featured Listings</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {featuredListings.map((listing: Listing) => (
-          <Link href={`/listing/${listing.id}`} key={listing.id} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-            <img src={listing.image} alt={listing.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h3 className="font-semibold text-lg mb-2">{listing.title}</h3>
-              <p className="text-xl font-bold text-blue-600">{listing.price}</p>
+const FeaturedListings: React.FC = () => {
+    return (
+        <section className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Featured Listings</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {featuredListings.map((listing) => (
+                    <FeaturedListingCard key={listing.id} listing={listing} />
+                ))}
             </div>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default FeaturedListings;
