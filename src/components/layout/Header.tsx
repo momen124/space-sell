@@ -116,14 +116,19 @@ export default function Header() {
       </header>
 
       {/* Second Header Section */}
-      <header className="bg-white shadow-md">
-        <nav className="container mx-auto p-4 flex justify-between">
-          <h1 className="text-xl font-bold text-blue-600">Space Sell</h1>
-          <ul className="flex space-x-4">
-            <li><a href="#" className="text-gray-600">Home</a></li>
-            <li><a href="#" className="text-gray-600">Settings</a></li>
-          </ul>
-        </nav>
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/" className="text-3xl font-bold text-blue-600 hover:text-blue-700">
+            Space Sell
+          </Link>
+          <nav>
+            <ul className="flex space-x-6 pr-0">
+              <li><Link href="/categories" className="text-gray-600 hover:text-blue-600">Categories</Link></li>
+              <li><Link href="/about" className="text-gray-600 hover:text-blue-600">About</Link></li>
+              <li><Link href="/contact" className="text-gray-600 hover:text-blue-600 pr-0">Contact</Link></li>
+            </ul>
+          </nav>
+        </div>
       </header>
     </>
   )

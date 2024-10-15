@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Social media icons
 import { Lock, Moon, Sun } from 'lucide-react'; // Additional icons
 import Link from 'next/link';
 
-const Footer = () => (
-  <>
+const Footer = () => {
+  return (
     <footer className="bg-gray-800 text-white py-10">
       <div className="container mx-auto px-4">
         {/* Top section with logo, about, quick links, and social media icons */}
@@ -77,13 +77,13 @@ const Footer = () => (
           </div>
         </div>
       </div>
-    </footer>
 
-    {/* Simple footer section from the second code */}
-    <footer className="bg-gray-800 p-4 text-white text-center">
-      <p>© 2024 Space Sell. All rights reserved.</p>
+      {/* Simple footer section from the second code */}
+      <footer className="bg-gray-800 p-4 text-white text-center">
+        <p>© 2024 Space Sell. All rights reserved.</p>
+      </footer>
     </footer>
-  </>
-);
+  );
+};
 
 export default Footer;
