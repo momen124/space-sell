@@ -1,12 +1,13 @@
+import { Queryable } from "@/utils/decorators/queryable.decorator";
 import { Api } from "./api";
 
 class UserService extends Api {
+  @Queryable("user", [])
   async getUserById(userId: string) {
     try {
       const response = await this.api.get(`/users/${userId}`);
       return response.data;
     } catch (error) {
-      console.error("Error fetching user data:", error);
       throw error;
     }
   }
@@ -16,12 +17,10 @@ class UserService extends Api {
       const response = await this.api.post("/users", userData);
       return response.data;
     } catch (error) {
-      console.error("Error creating user:", error);
       throw error;
     }
   }
 }
 
 const userService = new UserService();
-
 export { userService, UserService };
