@@ -16,23 +16,24 @@ import {
 import { Rocket, Search, User, Bell } from 'lucide-react'; // Logo icon
 import { FaHome, FaComments, FaUser, FaSignInAlt, FaUserPlus, FaPlus, FaSearch } from 'react-icons/fa'; // Navigation icons
 
-export function Header() {
+export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement search functionality here
     console.log('Searching for:', searchQuery);
   };
 
   return (
-    <header className="bg-white border-b shadow-md">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo and title */}
         <Link href="/" className="flex items-center space-x-2">
-          <Rocket className="h-6 w-6 text-blue-500" /> {/* Logo icon */}
-          <span className="text-xl font-bold">Space Sell</span>
+          <Rocket className="h-6 w-6 text-blue-300" /> {/* Logo icon */}
+          <span className="text-2xl font-bold">Space Sell</span>
         </Link>
 
+        {/* Search bar */}
         <form onSubmit={handleSearch} className="flex-1 max-w-sm mx-4">
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -47,41 +48,43 @@ export function Header() {
           </div>
         </form>
 
+        {/* Navigation and actions */}
         <nav className="flex items-center space-x-4">
-          <Link href="/" className="flex items-center text-gray-600 hover:text-blue-500">
+          <Link href="/" className="flex items-center text-gray-200 hover:text-blue-200">
             <FaHome className="mr-1" /> Home
           </Link>
-          <Link href="/search-results" className="flex items-center text-gray-600 hover:text-blue-500">
-            <FaSearch className="mr-1" /> Search
+          <Link href="/categories" className="flex items-center text-gray-200 hover:text-blue-200">
+            <FaSearch className="mr-1" /> Categories
           </Link>
-          <Link href="/chat" className="flex items-center text-gray-600 hover:text-blue-500">
+          <Link href="/chat" className="flex items-center text-gray-200 hover:text-blue-200">
             <FaComments className="mr-1" /> Chat
           </Link>
-          <Link href="/login" className="flex items-center text-gray-600 hover:text-blue-500">
+          <Link href="/login" className="flex items-center text-gray-200 hover:text-blue-200">
             <FaSignInAlt className="mr-1" /> Login
           </Link>
-          <Link href="/register" className="flex items-center text-gray-600 hover:text-blue-500">
+          <Link href="/register" className="flex items-center text-gray-200 hover:text-blue-200">
             <FaUserPlus className="mr-1" /> Register
           </Link>
-          <Link href="/profile" className="flex items-center text-gray-600 hover:text-blue-500">
+          <Link href="/profile" className="flex items-center text-gray-200 hover:text-blue-200">
             <FaUser className="mr-1" /> Profile
           </Link>
           <Link href="/create" className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             <FaPlus className="mr-1" /> Post Ad
           </Link>
-          
-          {/* Use ShadCN button here */}
-          <Button variant="outline" className="hidden md:block">
+
+          {/* Use ShadCN button */}
+          <Button variant="outline" className="hidden md:block text-white">
             Explore
           </Button>
 
           {/* Bell icon and User avatar */}
-          <Bell className="w-5 h-5 text-gray-600" />
+          <Bell className="w-5 h-5 text-white" />
           <Avatar className="w-8 h-8">
             <AvatarImage src="/placeholder.svg?height=100&width=100" alt="User" />
             <AvatarFallback>AJ</AvatarFallback>
           </Avatar>
 
+          {/* Dropdown menu */}
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -102,11 +105,6 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
-
-        {/* Settings Header Title */}
-        <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-bold">Settings</h1>
-        </div>
       </div>
     </header>
   );
