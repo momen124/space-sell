@@ -1,41 +1,48 @@
 import { Queryable } from "@/utils/decorators/queryable.decorator";
 import { Api } from "./api";
+import { Listing } from '@/types/listing';
 
-const mockData = [
+const mockData: Listing[] = [
   {
-    id: 1,
+    id: "1",
     title: "Spaceship X2000",
-    price: "$999,999",
-    image: "/placeholder.svg?height=100&width=100",
+    price: 999999,
+    description: "A state-of-the-art spaceship with warp drive capabilities.",
+    seller: "Elon Musk",
+    image: "/placeholder.svg?height=400&width=600",
   },
   {
-    id: 2,
+    id: "2",
     title: "Moon Rover",
-    price: "$50,000",
-    image: "/placeholder.svg?height=100&width=100",
+    price: 50000,
+    description: "Explore the lunar surface with this robust moon rover.",
+    seller: "NASA",
+    image: "/placeholder.svg?height=400&width=600",
   },
   {
-    id: 3,
+    id: "3",
     title: "Space Suit",
-    price: "$25,000",
-    image: "/placeholder.svg?height=100&width=100",
+    price: 25000,
+    description: "Advanced space suit for extraterrestrial missions.",
+    seller: "SpaceX",
+    image: "/placeholder.svg?height=400&width=600",
   },
 ];
 
 class ListingService extends Api {
   @Queryable("user", [])
-  async getListings() {
+  async getListings(): Promise<Listing[]> {
     try {
       // const response = await this.api.get("/listings");
 
-      await new Promise(resolve => setTimeout(resolve, 2000)); // wait for 1 sec to simulate real api call
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate API call
       return mockData;
     } catch (error) {
       throw error;
     }
   }
 
-  async createListing(listingData: unknown) {
+  async createListing(listingData: Listing): Promise<Listing> {
     try {
       const response = await this.api.post("/listings", listingData);
       return response.data;
@@ -46,5 +53,4 @@ class ListingService extends Api {
 }
 
 const listingService = new ListingService();
-
 export { listingService, ListingService };
