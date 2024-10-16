@@ -100,3 +100,9 @@ export interface Conversation {
   lastMessage: string; // Last message content
   messages: Message[]; // Array of messages in the conversation
 }
+
+// src/types/auth.ts
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
