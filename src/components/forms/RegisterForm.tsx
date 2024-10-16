@@ -1,24 +1,23 @@
 import { useState } from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RegisterFormData } from "@/types/auth";
+import { FaGoogle } from "react-icons/fa";
 
 const formSchema = z
   .object({
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
+    name: z.string().min(1, {
+      message: "Name is required.",
     }),
     email: z.string().email({
       message: "Please enter a valid email address.",
@@ -29,14 +28,14 @@ const formSchema = z
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<RegisterFormData>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -46,7 +45,7 @@ export function RegisterForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<RegisterFormData> = (values) => {
+  const onSubmit: SubmitHandler<any> = (values) => {
     setIsLoading(true);
     console.log(values);
     setTimeout(() => {
@@ -56,7 +55,7 @@ export function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="name"
@@ -66,9 +65,6 @@ export function RegisterForm() {
               <FormControl>
                 <Input placeholder="Enter your name" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -82,7 +78,6 @@ export function RegisterForm() {
               <FormControl>
                 <Input placeholder="Enter your email" {...field} />
               </FormControl>
-              <FormDescription>Enter a valid email address.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -96,7 +91,6 @@ export function RegisterForm() {
               <FormControl>
                 <Input type="password" placeholder="Enter your password" {...field} />
               </FormControl>
-              <FormDescription>Password must be at least 8 characters long.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -110,14 +104,23 @@ export function RegisterForm() {
               <FormControl>
                 <Input type="password" placeholder="Confirm your password" {...field} />
               </FormControl>
-              <FormDescription>Re-enter your password to confirm.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Registering..." : "Register"}
+        <Button type="submit" disabled={isLoading} className="w-full bg-red-600 hover:bg-red-700">
+          {isLoading ? "Registering..." : "Create Account"}
         </Button>
+        <Button type="button" variant="outline" className="w-full flex items-center justify-center space-x-2">
+          <FaGoogle className="h-5 w-5 text-red-500" />
+          <span>Sign up with Google</span>
+        </Button>
+        <div className="text-center text-sm mt-4">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 hover:underline">
+            Log in
+          </a>
+        </div>
       </form>
     </Form>
   );
