@@ -31,20 +31,37 @@ export function Header() {
           <Rocket className="h-6 w-6 text-blue-500" />
           <span className="text-xl font-bold">Space Sell</span>
         </Link>
+
+         {/* Navigation Links */}
+         <nav className="hidden md:flex space-x-8">
+          <Link href="/" className="text-lg font-medium hover:underline">
+            Home
+          </Link>
+          <Link href="/contact" className="text-lg font-medium hover:underline">
+            Contact
+          </Link>
+          <Link href="/about" className="text-lg font-medium hover:underline">
+            About
+          </Link>
+          <Link href="/signup" className="text-lg font-medium hover:underline">
+            Sign Up
+          </Link>
+        </nav>
+
         
-        {/* Search Bar */}
-        <form onSubmit={handleSearch} className="flex-1 max-w-md mx-4 hidden sm:block">
-          <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="pl-8"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              required
-            />
-          </div>
+               {/* Search Bar */}
+               <form onSubmit={handleSearch} className="flex items-center space-x-2 ml-4">
+          <Input
+            type="search"
+            placeholder="What are you looking for?"
+            className="pl-4 w-64 hidden lg:block"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            required
+          />
+          <button type="submit" className="p-2">
+            <Search className="h-5 w-5 text-gray-600" />
+          </button>
         </form>
         
         {/* Navigation and Profile Menu */}
