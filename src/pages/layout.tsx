@@ -2,7 +2,6 @@
 
 import { Header } from '@/components/layout/Header'
 import { CartProvider } from '../context/cart'
-import { NotificationProvider } from '../context/notification'
 import Footer from '@/components/layout/footer/Footer'
 
 export default function RootLayout({
@@ -11,7 +10,6 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <NotificationProvider>
       <CartProvider>
         <div className="flex flex-col min-h-screen">
           <Header />
@@ -19,6 +17,5 @@ export default function RootLayout({
           <Footer />
         </div>
       </CartProvider>
-    </NotificationProvider>
   )
 }

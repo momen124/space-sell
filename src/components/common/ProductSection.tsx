@@ -4,9 +4,6 @@ import { useCart } from "@/context/cart"; // Make sure the path to your cart con
 import FeaturedListingCard from "../listings/FeaturedListingCard ";
 import { Product, ProductSectionProps } from "@/types/ProductSection";
 
-
-
-
 const ProductSection: React.FC<ProductSectionProps> = ({
   title,
   subtitle,
@@ -47,11 +44,13 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 
   // Adding product to cart
   const handleAddToCart = (product: Product) => {
+    console.log("Add to Cart Clicked");
+    console.log("Product Info: ", product);
+    
     addToCart({
       id: parseInt(product.id),
       title: product.title,
       price: parseFloat(product.price.replace('$', '')),
-      quantity: 1, 
       imgSrc: product.imgSrc,
     });
   };
@@ -80,7 +79,6 @@ const ProductSection: React.FC<ProductSectionProps> = ({
                 price: product.price,
                 location: "",
                 imgSrc: product.imgSrc,
-                link: product.link,
               }}
             />
             <button

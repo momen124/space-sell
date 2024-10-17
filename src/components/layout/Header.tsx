@@ -1,19 +1,22 @@
+// src/components/Header.tsx
 'use client';
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Rocket, Search, User, ShoppingCart, PlusCircle, Bell } from 'lucide-react'
+import Link from 'next/link';
+import { useState } from 'react';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Rocket, Search, User, ShoppingCart, PlusCircle, Bell } from 'lucide-react';
+import { useCart } from '@/context/cart'; // Import the cart context
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
+  const { totalItems } = useCart(); // Use cart context to get total items
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Searching for:', searchQuery)
-  }
+    e.preventDefault();
+    console.log('Searching for:', searchQuery);
+  };
 
   return (
     <header className="border-b bg-white shadow-sm">
@@ -61,8 +64,13 @@ export function Header() {
             </Button>
           </Link>
           <Link href="/cart/CartPage" passHref>
-            <Button variant="ghost" className="p-2">
+            <Button variant="ghost" className="p-2 relative">
               <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                  {totalItems}
+                </span>
+              )}
             </Button>
           </Link>
           <Link href="/create-listing" passHref>

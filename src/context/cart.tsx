@@ -4,9 +4,6 @@
 import { CartContextType, CartItem } from '@/types/Cart'
 import React, { createContext, useContext, useState, useCallback } from 'react'
 
-
-
-
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export const useCart = () => {

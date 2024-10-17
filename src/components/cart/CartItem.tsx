@@ -1,7 +1,6 @@
-import { CartItemProps } from '@/types/CartItemProps';
+// src/components/cart/CartItem.tsx
+import { CartItemProps } from '@/types/Cart';
 import React from 'react';
-
-
 
 const CartItem: React.FC<CartItemProps> = ({ product, onQuantityChange }) => {
   return (
@@ -12,7 +11,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, onQuantityChange }) => {
         <span>{product.name}</span>
       </div>
       {/* Price */}
-      <span className="w-20 text-center">${product.price}</span>
+      <span className="w-20 text-center">${product.price.toFixed(2)}</span>
       {/* Quantity Selector */}
       <select
         value={product.quantity}
@@ -26,7 +25,7 @@ const CartItem: React.FC<CartItemProps> = ({ product, onQuantityChange }) => {
         ))}
       </select>
       {/* Subtotal */}
-      <span className="w-20 text-center">${product.price * product.quantity}</span>
+      <span className="w-20 text-center">${(product.price * product.quantity).toFixed(2)}</span>
     </div>
   );
 };
