@@ -4,25 +4,25 @@ import { Rocket } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-10">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gray-800 text-white py-10 mt-10">
+      <div className="container mx-auto px-6">
         {/* Top section with logo, about, quick links, and social media icons */}
-        <div className="flex flex-wrap justify-between items-start mb-6">
+        <div className="flex flex-wrap justify-between items-start mb-8">
           {/* Logo and description */}
-          <div className="w-full md:w-1/4 mb-4">
+          <div className="w-full md:w-1/4 mb-6">
             <div className="flex items-center space-x-2">
-            <Rocket className="h-6 w-6 text-blue-500" />
-            <span className="text-2xl font-bold">Space Sell</span>
+              <Rocket className="h-6 w-6 text-blue-500" />
+              <span className="text-2xl font-bold">Space Sell</span>
             </div>
-            <p className="text-sm mt-2">
+            <p className="text-sm mt-4">
               Space Sell is your go-to platform for buying and selling anything in your local community.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="w-full md:w-1/4 mb-4">
-            <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-            <nav className="flex flex-col space-y-2">
+          <div className="w-full md:w-1/4 mb-6">
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <nav className="flex flex-col space-y-3">
               <Link href="/about" className="hover:text-blue-400">About Us</Link>
               <Link href="/contact" className="hover:text-blue-400">Contact</Link>
               <Link href="/faq" className="hover:text-blue-400">FAQ</Link>
@@ -31,9 +31,9 @@ export function Footer() {
           </div>
 
           {/* Follow Us */}
-          <div className="w-full md:w-1/4 mb-4">
-            <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
-            <div className="flex space-x-4">
+          <div className="w-full md:w-1/4 mb-6">
+            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+            <div className="flex space-x-6">
               <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
                 <FaFacebook className="h-6 w-6" />
               </a>

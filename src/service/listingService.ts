@@ -1,6 +1,6 @@
 import { Queryable } from "@/utils/decorators/queryable.decorator";
 import { Api } from "./api";
-import { Listing } from '@/types/listing';
+import { Listing } from "@/types/Listing";
 
 const mockData: Listing[] = [
   {
@@ -30,12 +30,10 @@ const mockData: Listing[] = [
 ];
 
 class ListingService extends Api {
-  @Queryable("user", [])
   async getListings(): Promise<Listing[]> {
     try {
-      // const response = await this.api.get("/listings");
-
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate API call
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       return mockData;
     } catch (error) {
       throw error;
@@ -51,6 +49,7 @@ class ListingService extends Api {
     }
   }
 }
+
 
 const listingService = new ListingService();
 export { listingService, ListingService };

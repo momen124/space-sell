@@ -19,8 +19,8 @@ export function Header() {
   };
 
   return (
-    <header className="border-b bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="border-b bg-white shadow-sm py-4">
+      <div className="container mx-auto px-6 flex items-center justify-between">
         
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -57,7 +57,7 @@ export function Header() {
         </form>
         
         {/* Navigation and Profile Menu */}
-        <nav className="flex items-center space-x-4">
+        <nav className="flex items-center space-x-6">
           <Link href="/notification/notificationpage" passHref>
             <Button variant="ghost" className="p-2">
               <Bell className="h-5 w-5" />

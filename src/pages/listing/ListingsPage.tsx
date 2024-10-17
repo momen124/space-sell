@@ -1,12 +1,12 @@
-// src/pages/listings/[id].tsx
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import AdvancedFilter from '@/components/common/Filter';
 import ProductSection from '@/components/common/ProductSection';
 import RootLayout from '../layout';
+import { listingService } from '@/service/listingService';
+// Import a mock listing service (replace with your API call)
 
 const mockListings = [
   { id: "1", title: "Spaceship X2000", price: "999999", category: "Vehicles", imgSrc: "https://picsum.photos/300/200?random=1", rating: 4.5 },
@@ -20,25 +20,27 @@ export default function ListingsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
   const [sortOption, setSortOption] = useState('featured');
+  const [listings, setListings] = useState(mockListings); // State to manage listings data
 
-  const filteredListings = mockListings
+  // Fetch listings from an API or listing service
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const data = await listingService.getListings(); // Replace with your actual data-fetching function
+        setListings(data);
+      } catch (error) {
+        console.error("Error fetching listings:", error);
+      }
+    };
+
+    fetchListings();
+  }, []);
+
+  const filteredListings = listings
     .filter(listing =>
       listing.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (category === 'all' || listing.category === category)
     )
-
-    useEffect(() => {
-      const fetchListings = async () => {
-        try {
-          const data = await listingService.getListings();
-          setListings(data);
-        } catch (error) {
-          console.error("Error fetching listings:", error);
-        }
-      };
-  
-      fetchListings();
-    }, []);
     .sort((a, b) => {
       if (sortOption === 'price-low') return parseFloat(a.price) - parseFloat(b.price);
       if (sortOption === 'price-high') return parseFloat(b.price) - parseFloat(a.price);
@@ -53,7 +55,11 @@ export default function ListingsPage() {
         <aside className="w-1/4">
           <h2 className="text-xl font-bold mb-4">Filter Results</h2>
           {/* Advanced Filter Section */}
-          <AdvancedFilter />
+          <AdvancedFilter
+            category={category}
+            setCategory={setCategory}
+            setSortOption={setSortOption}
+          />
         </aside>
 
         {/* Listings Section */}

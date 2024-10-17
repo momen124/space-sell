@@ -1,8 +1,10 @@
 import { CategoryPageProps } from '@/types/Category';
 import { Product } from '@/types/ProductSection';
+import { Root } from '@radix-ui/react-slot';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
+import RootLayout from '../layout';
 
 
 
@@ -25,7 +27,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryName, products }) =
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container  px-4 py-8">
+      <RootLayout> 
       <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
       <p className="text-lg mb-6">Showing products for the "{categoryName}" category.</p>
       
@@ -45,6 +48,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryName, products }) =
       ) : (
         <p>No products found for this category.</p>
       )}
+      </RootLayout>
     </main>
   );
 };

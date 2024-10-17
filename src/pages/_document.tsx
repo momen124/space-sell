@@ -1,23 +1,20 @@
-import { NextSeo } from 'next-seo';
-import { Head, Html, Main, NextScript } from "next/document";
-import RootLayout from "./layout";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import React from 'react';
 
-const metadata = {
-  title: 'Space Sell',
-  description: 'Buy and sell space items',
-}
-
-export default function Document() {
-  return (
-    <Html lang="en">
-      <Head />
-      <NextSeo title={metadata.title} description={metadata.description} />
-      <RootLayout>
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          {/* Meta tags and SEO-related tags can go here */}
+        </Head>
         <body className="antialiased">
           <Main />
           <NextScript />
         </body>
-      </RootLayout>
-    </Html>
-  );
+      </Html>
+    );
+  }
 }
+
+export default MyDocument;
