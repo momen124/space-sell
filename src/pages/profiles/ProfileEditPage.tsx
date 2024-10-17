@@ -62,15 +62,15 @@ const ProfileEditPage: React.FC = () => {
         <nav className="flex flex-col space-y-4">
           <h3 className="font-bold text-lg">Manage My Account</h3>
           <Link href="/profile/edit" className="text-red-500">My Profile</Link>
-          <Link href="/profile/address-book" className="text-gray-700 hover:text-red-500">Address Book</Link>
-          <Link href="/profile/payment-options" className="text-gray-700 hover:text-red-500">My Payment Options</Link>
+          <Link href="/AddressBook" className="text-gray-700 hover:text-red-500">Address Book</Link>
+          <Link href="/PaymentOptions" className="text-gray-700 hover:text-red-500">My Payment Options</Link>
 
           <h3 className="font-bold text-lg mt-4">My Orders</h3>
-          <Link href="/profile/returns" className="text-gray-700 hover:text-red-500">My Returns</Link>
-          <Link href="/profile/cancellations" className="text-gray-700 hover:text-red-500">My Cancellations</Link>
+          <Link href="/MyReturns" className="text-gray-700 hover:text-red-500">My Returns</Link>
+          <Link href="/MyCancellations" className="text-gray-700 hover:text-red-500">My Cancellations</Link>
 
           <h3 className="font-bold text-lg mt-4">My Wishlist</h3>
-          <Link href="/profile/wishlist" className="text-gray-700 hover:text-red-500">My WishList</Link>
+          <Link href="/wishlist/WishlistPage" className="text-gray-700 hover:text-red-500">My WishList</Link>
         </nav>
       </aside>
 

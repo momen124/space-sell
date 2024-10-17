@@ -1,8 +1,9 @@
+// pages/cart/CartPage.tsx
 import React, { useState } from 'react';
 import CartItem from '@/components/cart/CartItem';
 import CartSummary from '@/components/cart/CartSummary';
-import Footer from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
+
+import RootLayout from '../layout';
 
 const CartPage: React.FC = () => {
   const [cartItems, setCartItems] = useState([
@@ -30,7 +31,7 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-        <Header />
+      <RootLayout >
       <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
       <div className="flex flex-wrap -mx-4">
         {/* Cart Items */}
@@ -78,7 +79,7 @@ const CartPage: React.FC = () => {
           <CartSummary subtotal={subtotal} shipping="Free" />
         </div>
       </div>
-      <Footer   />
+      </RootLayout >
     </div>
   );
 };

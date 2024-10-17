@@ -17,13 +17,13 @@ const categories = [
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="flex gap-6 mb-12">
+    <section className="flex gap-3 mb-12">
       {/* Category Menu */}
-      <div className="w-64 border border-blue-400 p-4 bg-white rounded">
+      <div className="w-64 border border-blue-100 p-6 bg-white rounded">
         <ul className="space-y-4">
           {categories.map((category) => (
             <li key={category.name} className="flex items-center justify-between">
-              <Link href={category.link} className="text-blue-800 hover:text-blue-600">
+              <Link href={category.link} className="text-blue-950 hover:text-blue-600">
                 {category.name}
               </Link>
               <ChevronRight className="h-4 w-4 text-blue-800" />

@@ -1,5 +1,6 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
+import { Rocket } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -10,8 +11,8 @@ export function Footer() {
           {/* Logo and description */}
           <div className="w-full md:w-1/4 mb-4">
             <div className="flex items-center space-x-2">
-              <img src="/logo.png" alt="Logo" className="h-10" />
-              <span className="text-2xl font-bold">Space Sell</span>
+            <Rocket className="h-6 w-6 text-blue-500" />
+            <span className="text-2xl font-bold">Space Sell</span>
             </div>
             <p className="text-sm mt-2">
               Space Sell is your go-to platform for buying and selling anything in your local community.

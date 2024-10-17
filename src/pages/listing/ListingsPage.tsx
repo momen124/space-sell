@@ -38,15 +38,7 @@ export default function ListingsPage() {
       <aside className="w-1/4 pr-8">
         <h2 className="text-xl font-bold mb-4">Filter Results</h2>
 
-        {/* Search Box */}
-        <Input
-          type="text"
-          placeholder="Search listings..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="mb-4 w-full"
-        />
-
+      
         {/* Advanced Filter Section */}
         <AdvancedFilter/>
       </aside>

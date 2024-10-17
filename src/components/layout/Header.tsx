@@ -43,7 +43,7 @@ export function Header() {
           <Link href="/about" className="text-lg font-medium hover:underline">
             About
           </Link>
-          <Link href="/signup" className="text-lg font-medium hover:underline">
+          <Link href="/auth/register" className="text-lg font-medium hover:underline">
             Sign Up
           </Link>
         </nav>
@@ -95,7 +95,7 @@ export function Header() {
             <DropdownMenuContent align="end" className="w-48 bg-gradient-to-b from-gray-800 to-gray-900 text-white">
               <DropdownMenuItem className="flex items-center space-x-2">
                 <User className="h-4 w-4" />
-                <Link href="/profile/manage-account" className="hover:text-gray-300">
+                <Link href="/profiles/ProfileEditPage" className="hover:text-gray-300">
                   Manage My Account
                 </Link>
               </DropdownMenuItem>

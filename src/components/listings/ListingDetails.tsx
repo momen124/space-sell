@@ -1,4 +1,6 @@
+// src/components/ListingDetails.tsx
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const ListingDetails: React.FC<{
   title: string;
@@ -9,8 +11,21 @@ const ListingDetails: React.FC<{
 }> = ({ title, price, location, postDate, seller }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState('M');
+  const router = useRouter();
 
   const colors = ['S', 'M', 'L', 'XL'];
+
+  const handleAddToCart = () => {
+    // Simulate adding to cart, then redirect to the cart page
+    // Here you would normally update the cart state in your application (e.g., Redux or Context API)
+    router.push('/cart/CartPage');
+  };
+
+  const handleBuyNow = () => {
+    // Simulate buying the product by adding to cart, then redirect to the cart page
+    // Here you would normally handle immediate checkout (e.g., Stripe API)
+    router.push('/cart/CartPage');
+  };
 
   return (
     <div className="md:w-1/3 p-6 bg-white rounded-lg shadow">
@@ -56,8 +71,18 @@ const ListingDetails: React.FC<{
       </div>
 
       {/* Buttons */}
-      <button className="bg-red-600 text-white w-full py-2 rounded-lg hover:bg-red-700 mb-4">Buy Now</button>
-      <button className="border w-full py-2 rounded-lg mb-2">Add to Cart</button>
+      <button
+        onClick={handleBuyNow}
+        className="bg-red-600 text-white w-full py-2 rounded-lg hover:bg-red-700 mb-4"
+      >
+        Buy Now
+      </button>
+      <button
+        onClick={handleAddToCart}
+        className="border w-full py-2 rounded-lg mb-2"
+      >
+        Add to Cart
+      </button>
 
       {/* Save & Share */}
       <div className="flex mt-2 space-x-2">
