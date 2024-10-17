@@ -26,6 +26,19 @@ export default function ListingsPage() {
       listing.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (category === 'all' || listing.category === category)
     )
+
+    useEffect(() => {
+      const fetchListings = async () => {
+        try {
+          const data = await listingService.getListings();
+          setListings(data);
+        } catch (error) {
+          console.error("Error fetching listings:", error);
+        }
+      };
+  
+      fetchListings();
+    }, []);
     .sort((a, b) => {
       if (sortOption === 'price-low') return parseFloat(a.price) - parseFloat(b.price);
       if (sortOption === 'price-high') return parseFloat(b.price) - parseFloat(a.price);
