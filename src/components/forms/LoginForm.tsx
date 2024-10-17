@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { loginSchema } from "@/types/schemas/loginSchema"; // Updated import path
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,21 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { FaGoogle } from "react-icons/fa";
 
-const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
-  }),
-});
-
 export function LoginForm() {
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -38,6 +26,7 @@ export function LoginForm() {
   function onSubmit(values: any) {
     console.log(values);
   }
+
 
   return (
     <Form {...form}>
