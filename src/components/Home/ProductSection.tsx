@@ -1,6 +1,7 @@
 // src/components/ProductSection.tsx
 import React from "react";
 import Link from "next/link";
+import { useCart } from "@/pages/context/cart";
 import FeaturedListingCard from "../listings/FeaturedListingCard ";
 
 interface Product {
@@ -35,6 +36,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   const [hours, setHours] = React.useState(countdownTimer?.hours || 0);
   const [minutes, setMinutes] = React.useState(countdownTimer?.minutes || 0);
   const [seconds, setSeconds] = React.useState(countdownTimer?.seconds || 0);
+  const { addToCart } = useCart(); // Updated to match the function name in the context
 
   React.useEffect(() => {
     if (countdownTimer) {
@@ -61,6 +63,16 @@ const ProductSection: React.FC<ProductSectionProps> = ({
     }
   }, [hours, minutes, countdownTimer]);
 
+  // Adding product to cart
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: parseInt(product.id),
+      title: product.title,
+      price: parseFloat(product.price.replace('$', '')),
+      imgSrc: product.imgSrc,
+    });
+  };
+
   return (
     <section className="mb-12">
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
@@ -77,23 +89,32 @@ const ProductSection: React.FC<ProductSectionProps> = ({
       )}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <FeaturedListingCard
-            key={product.id}
-            listing={{
-              id: product.id,
-              title: product.title,
-              price: product.price,
-              location: "",
-              imgSrc: product.imgSrc,
-              link: product.link,
-            }}
-          />
+          <div key={product.id}>
+            <FeaturedListingCard
+              listing={{
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                location: "",
+                imgSrc: product.imgSrc,
+                link: product.link,
+              }}
+            />
+            <button
+              onClick={() => handleAddToCart(product)}
+              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"
+            >
+              Add to Cart
+            </button>
+          </div>
         ))}
       </div>
       {viewAllLink && (
         <div className="mt-6 text-center">
           <Link href={viewAllLink} passHref>
-            <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600">View All</button>
+            <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600">
+              View All
+            </button>
           </Link>
         </div>
       )}

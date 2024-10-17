@@ -1,3 +1,4 @@
+// src/context/cart.tsx
 'use client'
 
 import React, { createContext, useContext, useState, useCallback } from 'react'
@@ -7,11 +8,12 @@ interface CartItem {
   title: string
   price: number
   quantity: number
+  imgSrc: string
 }
 
 interface CartContextType {
   items: CartItem[]
-  addItem: (item: Omit<CartItem, 'quantity'>) => void
+  addToCart: (item: Omit<CartItem, 'quantity'>) => void
   removeItem: (id: number) => void
   updateQuantity: (id: number, quantity: number) => void
   clearCart: () => void
@@ -32,7 +34,7 @@ export const useCart = () => {
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([])
 
-  const addItem = useCallback((newItem: Omit<CartItem, 'quantity'>) => {
+  const addToCart = useCallback((newItem: Omit<CartItem, 'quantity'>) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === newItem.id)
       if (existingItem) {
@@ -63,7 +65,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
+      value={{ items, addToCart, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
     >
       {children}
     </CartContext.Provider>
