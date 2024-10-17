@@ -12,7 +12,9 @@ const ListingGallery: React.FC<{ images: string[] }> = ({ images }) => {
             key={index}
             src={img}
             alt={`Thumbnail ${index + 1}`}
-            className="w-24 h-24 object-cover rounded cursor-pointer"
+            className={`w-24 h-24 object-cover rounded cursor-pointer ${
+              mainImage === img ? 'border-2 border-blue-400' : ''
+            }`}
             onClick={() => setMainImage(img)}
           />
         ))}

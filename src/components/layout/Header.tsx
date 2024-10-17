@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle, Bell } from 'lucide-react'
+import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle, Bell, XCircle, Package, Star } from 'lucide-react'
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,7 +71,7 @@ export function Header() {
               <Bell className="h-5 w-5" />
             </Button>
           </Link>
-          <Link href="/checkout/checkoutPage" passHref>
+          <Link href="/cart/CartPage" passHref>
             <Button variant="ghost" className="p-2">
               <ShoppingCart className="h-5 w-5" />
             </Button>
@@ -82,30 +82,45 @@ export function Header() {
             </Button>
           </Link>
           
-          {/* Profile Dropdown */}
-          <DropdownMenu>
+        {/* Profile Dropdown */}
+        <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar className="cursor-pointer">
+              <Avatar className="cursor-pointer bg-red-500">
                 <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
                 <AvatarFallback>
-                  <User className="h-4 w-4" />
+                  <User className="h-4 w-4 text-white" />
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuContent align="end" className="w-48 bg-gradient-to-b from-gray-800 to-gray-900 text-white">
+              <DropdownMenuItem className="flex items-center space-x-2">
+                <User className="h-4 w-4" />
+                <Link href="/profile/manage-account" className="hover:text-gray-300">
+                  Manage My Account
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center space-x-2">
+                <Package className="h-4 w-4" />
+                <Link href="/orders" className="hover:text-gray-300">
+                  My Orders
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center space-x-2">
+                <XCircle className="h-4 w-4" />
+                <Link href="/cancellations" className="hover:text-gray-300">
+                  My Cancellations
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center space-x-2">
+                <Star className="h-4 w-4" />
+                <Link href="/reviews" className="hover:text-gray-300">
+                  My Reviews
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href="/profile/1" className="flex items-center space-x-2">
-                  <User className="h-4 w-4" />
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/setting/settingPage" className="flex items-center space-x-2">
-                  <Settings className="h-4 w-4" />
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center space-x-2 text-red-600">
+              <DropdownMenuItem className="flex items-center space-x-2 text-red-400">
                 <LogOut className="h-4 w-4" />
+                <span>Logout</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

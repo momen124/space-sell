@@ -5,7 +5,8 @@ export default function SignUpPage() {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Image Section */}
-      <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url('/path/to/your/image.jpg')` }}></div>
+      
+      <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url('')` }}></div>
 
       {/* Form Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">

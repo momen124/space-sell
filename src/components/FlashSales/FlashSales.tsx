@@ -1,4 +1,5 @@
 import React from "react";
+import FeaturedListingCard from "../listings/FeaturedListingCard ";
 
 interface Product {
     id: string;
@@ -6,6 +7,7 @@ interface Product {
     price: string;
     oldPrice: string;
     imgSrc: string;
+    link: string;
 }
 
 const flashSales: Product[] = [
@@ -15,6 +17,7 @@ const flashSales: Product[] = [
         price: "$120",
         oldPrice: "$150",
         imgSrc: "/images/gamepad.png",
+        link: "/product/1",
     },
     {
         id: "2",
@@ -22,6 +25,7 @@ const flashSales: Product[] = [
         price: "$80",
         oldPrice: "$100",
         imgSrc: "/images/keyboard.png",
+        link: "/product/2",
     },
     {
         id: "3",
@@ -29,6 +33,7 @@ const flashSales: Product[] = [
         price: "$370",
         oldPrice: "$450",
         imgSrc: "/images/monitor.png",
+        link: "/product/3",
     },
 ];
 
@@ -44,14 +49,17 @@ const FlashSales: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {flashSales.map((product) => (
-                    <div key={product.id} className="bg-white p-4 rounded shadow">
-                        <img src={product.imgSrc} alt={product.title} className="w-full h-40 object-cover mb-4 rounded" />
-                        <h3 className="font-semibold text-lg">{product.title}</h3>
-                        <div className="flex justify-between items-center mt-2">
-                            <span className="text-green-600 font-semibold">{product.price}</span>
-                            <span className="line-through text-gray-400">{product.oldPrice}</span>
-                        </div>
-                    </div>
+                    <FeaturedListingCard
+                        key={product.id}
+                        listing={{
+                            id: product.id,
+                            title: product.title,
+                            price: product.price,
+                            location: "",
+                            imgSrc: product.imgSrc,
+                            link: product.link,
+                        }}
+                    />
                 ))}
             </div>
         </section>
