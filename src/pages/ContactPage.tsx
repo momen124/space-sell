@@ -1,5 +1,5 @@
 import ContactForm from "@/components/forms/ContactForm";
-import ContactInfo from "@/components/contact/ContactInfo";
+import ContactInfo from "@/components/layout/footer/contact/ContactInfo";
 import React from "react";
 
 

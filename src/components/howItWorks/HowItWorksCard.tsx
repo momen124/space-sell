@@ -1,13 +1,9 @@
 // src/components/HowItWorksCard.tsx
 
+import { HowItWorksCardProps } from "@/types/howItwork";
 import React from "react";
 
-interface HowItWorksCardProps {
-    step: {
-        title: string;
-        description: string;
-    };
-}
+
 
 const HowItWorksCard: React.FC<HowItWorksCardProps> = ({ step }) => {
     return (

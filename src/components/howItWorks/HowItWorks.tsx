@@ -2,11 +2,9 @@
 
 import React from "react";
 import HowItWorksCard from "./HowItWorksCard";
+import { Step } from "@/types/howItwork";
 
-interface Step {
-    title: string;
-    description: string;
-}
+
 
 const steps: Step[] = [
     { title: "Create an Account", description: "Sign up for free and create your profile." },

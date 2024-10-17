@@ -1,6 +1,6 @@
-import OurStory from "@/components/About/OurStory";
-import Statistics from "@/components/About/Statistics";
-import TeamSection from "@/components/About/TeamSection";
+import OurStory from "@/components/layout/footer/About/OurStory";
+import Statistics from "@/components/layout/footer/About/Statistics";
+import TeamSection from "@/components/layout/footer/About/TeamSection";
 import React from "react";
 
 const AboutPage: React.FC = () => {

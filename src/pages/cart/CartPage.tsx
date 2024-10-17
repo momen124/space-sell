@@ -3,7 +3,7 @@ import React from 'react';
 import CartItem from '@/components/cart/CartItem';
 import CartSummary from '@/components/cart/CartSummary';
 import RootLayout from '../layout';
-import { useCart } from '../context/cart';
+import { useCart } from '../../context/cart';
 
 const CartPage: React.FC = () => {
   const { items, updateQuantity, totalPrice } = useCart();

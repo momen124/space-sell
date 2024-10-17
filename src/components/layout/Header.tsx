@@ -4,15 +4,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Rocket, Search, User, LogOut, Settings, ShoppingCart, PlusCircle, Bell, XCircle, Package, Star } from 'lucide-react'
+import { Rocket, Search, User, ShoppingCart, PlusCircle, Bell } from 'lucide-react'
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,28 +22,24 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Rocket className="h-6 w-6 text-blue-500" />
-          <span className="text-xl font-bold">Space Sell</span>
+          <span className="text-xl font-bold ml-2">Space Sell</span>
         </Link>
 
-         {/* Navigation Links */}
-         <nav className="hidden md:flex space-x-8">
+        {/* Navigation Links */}
+        <nav className="hidden md:flex space-x-8">
           <Link href="/" className="text-lg font-medium hover:underline">
             Home
           </Link>
-          <Link href="/contact" className="text-lg font-medium hover:underline">
-            Contact
-          </Link>
-          <Link href="/about" className="text-lg font-medium hover:underline">
-            About
+          <Link href="/listing/ListingsPage" className="text-lg font-medium hover:underline">
+            Shop
           </Link>
           <Link href="/auth/register" className="text-lg font-medium hover:underline">
             Sign Up
           </Link>
         </nav>
 
-        
-               {/* Search Bar */}
-               <form onSubmit={handleSearch} className="flex items-center space-x-2 ml-4">
+        {/* Search Bar */}
+        <form onSubmit={handleSearch} className="flex items-center space-x-2 ml-4">
           <Input
             type="search"
             placeholder="What are you looking for?"
@@ -77,53 +66,20 @@ export function Header() {
             </Button>
           </Link>
           <Link href="/create-listing" passHref>
-            <Button className="p-2">
+            <Button variant="ghost" className="p-2">
               <PlusCircle className="h-5 w-5" />
             </Button>
           </Link>
-          
-        {/* Profile Dropdown */}
-        <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar className="cursor-pointer bg-red-500">
-                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                <AvatarFallback>
-                  <User className="h-4 w-4 text-white" />
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 bg-gradient-to-b from-gray-800 to-gray-900 text-white">
-              <DropdownMenuItem className="flex items-center space-x-2">
-                <User className="h-4 w-4" />
-                <Link href="/profiles/ProfileEditPage" className="hover:text-gray-300">
-                  Manage My Account
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center space-x-2">
-                <Package className="h-4 w-4" />
-                <Link href="/orders" className="hover:text-gray-300">
-                  My Orders
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center space-x-2">
-                <XCircle className="h-4 w-4" />
-                <Link href="/cancellations" className="hover:text-gray-300">
-                  My Cancellations
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center space-x-2">
-                <Star className="h-4 w-4" />
-                <Link href="/reviews" className="hover:text-gray-300">
-                  My Reviews
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="flex items-center space-x-2 text-red-400">
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          {/* Profile Link */}
+          <Link href="/profiles/ProfileEditPage" passHref>
+            <Avatar className="cursor-pointer bg-red-500">
+              <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
+              <AvatarFallback>
+                <User className="h-4 w-4 text-white" />
+              </AvatarFallback>
+            </Avatar>
+          </Link>
         </nav>
       </div>
     </header>

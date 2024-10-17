@@ -1,17 +1,10 @@
-// pages/category/[category].tsx
+import { CategoryPageProps } from '@/types/Category';
+import { Product } from '@/types/ProductSection';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-interface Product {
-  id: string;
-  title: string;
-  price: string;
-  oldPrice?: string;
-  imgSrc: string;
-  category: string;
-  link: string;
-}
+
 
 const allProducts: Product[] = [
   { id: "1", title: "Phone A", price: "$300", imgSrc: "https://picsum.photos/200/300", category: "electronics", link: "/product/1" },
@@ -22,10 +15,6 @@ const allProducts: Product[] = [
   { id: "6", title: "Family House", price: "$50000", imgSrc: "https://picsum.photos/200/300", category: "real-estate", link: "/product/6" },
 ];
 
-interface CategoryPageProps {
-  categoryName: string;
-  products: Product[];
-}
 
 const CategoryPage: React.FC<CategoryPageProps> = ({ categoryName, products }) => {
   const router = useRouter();

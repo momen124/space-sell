@@ -1,11 +1,8 @@
 import React from 'react'
-import CategoryCard from './category-card'
+import { Category } from '@/types/Category'
+import CategoryCard from './CategoryCard'
 
-interface Category {
-  title: string
-  imageUrl: string
-  slug: string
-}
+
 
 const categories: Category[] = [
   { title: 'Electronics', imageUrl: '/placeholder.svg?height=300&width=400', slug: 'electronics' },

@@ -1,14 +1,9 @@
 // src/components/CategoryCard.tsx
 import React from "react";
 import Link from "next/link";
+import { CategoryCardProps } from "@/types/Category";
 
-interface CategoryCardProps {
-  category: {
-    name: string;
-    icon: string;
-    link: string;
-  };
-}
+
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (

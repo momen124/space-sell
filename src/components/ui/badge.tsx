@@ -1,4 +1,3 @@
-// في components/ui/badge.tsx
 import React from 'react';
 
 interface BadgeProps {

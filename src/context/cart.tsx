@@ -1,25 +1,11 @@
 // src/context/cart.tsx
 'use client'
 
+import { CartContextType, CartItem } from '@/types/Cart'
 import React, { createContext, useContext, useState, useCallback } from 'react'
 
-interface CartItem {
-  id: number
-  title: string
-  price: number
-  quantity: number
-  imgSrc: string
-}
 
-interface CartContextType {
-  items: CartItem[]
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void
-  removeItem: (id: number) => void
-  updateQuantity: (id: number, quantity: number) => void
-  clearCart: () => void
-  totalItems: number
-  totalPrice: number
-}
+
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 

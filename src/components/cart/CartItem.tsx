@@ -1,14 +1,7 @@
+import { CartItemProps } from '@/types/CartItemProps';
 import React from 'react';
 
-interface CartItemProps {
-  product: {
-    name: string;
-    price: number;
-    quantity: number;
-    imgSrc: string;
-  };
-  onQuantityChange: (quantity: number) => void;
-}
+
 
 const CartItem: React.FC<CartItemProps> = ({ product, onQuantityChange }) => {
   return (

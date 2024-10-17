@@ -1,38 +1,30 @@
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  joinDate: string;
+import Link from 'next/link';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Listing } from '@/types/Listing';
+import { User } from '@/types/authtypes';
+
+interface UserProfilePageProps {
+  user: User;
+  listings: Listing[];
 }
 
-interface Listing {
-  id: number;
-  title: string;
-  price: number;
-}
-
-// Simulated async data fetcher for user details
+// Mock data fetching functions
 async function getUser(id: string): Promise<User | null> {
-  const users = [
+  const users: User[] = [
     { id: "1", name: "John Doe", email: "john@example.com", joinDate: "2023-01-01" },
   ];
-  
-  return users.find(u => u.id === id) || null
+  return users.find(u => u.id === id) || null;
 }
 
-// Simulated async data fetcher for user listings
 async function getUserListings(userId: string): Promise<Listing[]> {
   return [
-    { id: 1, title: "Spaceship X2000", price: 999999 },
-    { id: 2, title: "Moon Rover", price: 50000 },
+    { id: "1", title: "Spaceship X2000", price: "999999", location: "New York, NY" },
+    { id: "2", title: "Moon Rover", price: "50000", location: "Brooklyn, NY" },
   ];
 }
 
-export default function UserProfilePage({ user, listings }: { user: any; listings: any[] }) {
+const UserProfilePage: React.FC<UserProfilePageProps> = ({ user, listings }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center mb-8">
@@ -54,12 +46,13 @@ export default function UserProfilePage({ user, listings }: { user: any; listing
             <div className="border p-4 rounded-lg hover:shadow-md transition-shadow">
               <img src="/placeholder.svg?height=100&width=100" alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
               <h3 className="font-semibold">{listing.title}</h3>
-              <p className="text-lg font-bold text-green-600">${listing.price.toLocaleString()}</p>
+              <p className="text-lg font-bold text-green-600">${parseFloat(listing.price).toLocaleString()}</p>
             </div>
           </Link>
         ))}
       </div>
     </div>
   );
-}
+};
 
+export default UserProfilePage;

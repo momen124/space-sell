@@ -1,24 +1,16 @@
-// src/components/FeaturedListings.tsx
+// FeaturedListings.tsx
+
 import React from "react";
+import { RelatedListing } from "@/types/Listing";
 import FeaturedListingCard from "./FeaturedListingCard ";
 
-interface Listing {
-    id: string;  // Add id property
-    title: string;
-    price: string;
-    location: string;
-    imgSrc: string;
-    link: string;
-}
-
-const featuredListings: Listing[] = [
+const featuredListings: RelatedListing[] = [
     {
         id: "3",
         title: "Samsung Galaxy S21",
         price: "$799",
         location: "Manhattan, NY",
         imgSrc: "https://picsum.photos/300/200?random=1",
-        link: "/listing/3",
     },
     {
         id: "4",
@@ -26,7 +18,6 @@ const featuredListings: Listing[] = [
         price: "$499",
         location: "Brooklyn, NY",
         imgSrc: "https://picsum.photos/300/200?random=2",
-        link: "/listing/4",
     },
     {
         id: "5",
@@ -34,7 +25,6 @@ const featuredListings: Listing[] = [
         price: "$22,000",
         location: "Queens, NY",
         imgSrc: "https://picsum.photos/300/200?random=3",
-        link: "/listing/5",
     },
 ];
 

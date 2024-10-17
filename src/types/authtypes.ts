@@ -17,18 +17,8 @@ export interface RegisterFormData {
   confirmPassword: string;
 }
 
-export interface Listing {
-  id: number;
-  title: string;
-  price: string;
-  image: string;
-}
 
-// Type for the return value of getFeatureListings function
-export type FeatureListingsResult = Listing[];
 
-// Type for the state of featuredListings
-export type FeaturedListingsState = Listing[];
 
 export interface IconProps {
   className?: string;
@@ -60,7 +50,8 @@ declare module '@/components/ui/badge' {
 export interface User {
   id: string;
   name: string;
-  avatar: string;
+  email: string;
+  joinDate: string;
 }
 
 export interface ChatRoom {

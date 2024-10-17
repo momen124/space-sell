@@ -1,7 +1,7 @@
 // src/pages/WishlistPage.tsx
 
 import React from "react";
-import ProductSection from "@/components/Home/ProductSection";
+import ProductSection from "@/components/common/ProductSection";
 import RootLayout from "../layout";
 
 const WishlistPage: React.FC = () => {

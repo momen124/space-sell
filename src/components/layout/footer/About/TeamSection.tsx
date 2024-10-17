@@ -1,11 +1,7 @@
+import { TeamMember } from "@/types/TeamMember";
 import React from "react";
 import { FaLinkedin, FaInstagram } from "react-icons/fa";
 
-interface TeamMember {
-  name: string;
-  title: string;
-  imageUrl: string;
-}
 
 const teamMembers: TeamMember[] = [
   { name: "Tom Cruise", title: "Founder & Chairman", imageUrl: "/images/tom-cruise.jpg" },

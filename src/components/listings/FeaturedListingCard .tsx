@@ -1,17 +1,9 @@
 // src/components/FeaturedListingCard.tsx
 import React from "react";
 import Link from "next/link";
+import { FeaturedListingCardProps } from "@/types/Listing";
 
-interface FeaturedListingCardProps {
-    listing: {
-        id: string;
-        title: string;
-        price: string;
-        location: string;
-        imgSrc: string;
-        link: string;
-    };
-}
+
 
 const FeaturedListingCard: React.FC<FeaturedListingCardProps> = ({ listing }) => {
     return (

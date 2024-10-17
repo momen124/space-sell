@@ -1,29 +1,11 @@
-// src/components/ProductSection.tsx
 import React from "react";
 import Link from "next/link";
-import { useCart } from "@/pages/context/cart";
+import { useCart } from "@/context/cart"; // Make sure the path to your cart context is correct
 import FeaturedListingCard from "../listings/FeaturedListingCard ";
+import { Product, ProductSectionProps } from "@/types/ProductSection";
 
-interface Product {
-  id: string;
-  title: string;
-  price: string;
-  oldPrice?: string;
-  imgSrc: string;
-  link: string;
-}
 
-interface ProductSectionProps {
-  title: string;
-  subtitle?: string;
-  products: Product[];
-  viewAllLink?: string;
-  countdownTimer?: {
-    hours: number;
-    minutes: number;
-    seconds: number;
-  };
-}
+
 
 const ProductSection: React.FC<ProductSectionProps> = ({
   title,
@@ -36,7 +18,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
   const [hours, setHours] = React.useState(countdownTimer?.hours || 0);
   const [minutes, setMinutes] = React.useState(countdownTimer?.minutes || 0);
   const [seconds, setSeconds] = React.useState(countdownTimer?.seconds || 0);
-  const { addToCart } = useCart(); // Updated to match the function name in the context
+  const { addToCart } = useCart(); // Ensure the function name matches the one in the context
 
   React.useEffect(() => {
     if (countdownTimer) {
@@ -69,6 +51,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
       id: parseInt(product.id),
       title: product.title,
       price: parseFloat(product.price.replace('$', '')),
+      quantity: 1, 
       imgSrc: product.imgSrc,
     });
   };
@@ -112,7 +95,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
       {viewAllLink && (
         <div className="mt-6 text-center">
           <Link href={viewAllLink} passHref>
-            <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600">
+            <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
               View All
             </button>
           </Link>

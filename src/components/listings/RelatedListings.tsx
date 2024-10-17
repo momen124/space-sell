@@ -1,13 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { Listing } from '@/types/Listing';
 
-interface Listing {
-  id: string;
-  title: string;
-  price: string;
-  location: string;
-  imgSrc: string;
-}
 
 const RelatedListings: React.FC<{ listings: Listing[] }> = ({ listings }) => {
   return (

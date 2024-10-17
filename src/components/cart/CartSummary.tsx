@@ -1,9 +1,6 @@
+import { CartSummaryProps } from '@/types/Cart';
 import React from 'react';
 
-interface CartSummaryProps {
-  subtotal: number;
-  shipping: string;
-}
 
 const CartSummary: React.FC<CartSummaryProps> = ({ subtotal, shipping }) => {
   const total = subtotal; // Assuming shipping is free for now.
