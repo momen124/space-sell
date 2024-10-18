@@ -1,8 +1,5 @@
-// src/context/cart.tsx
-'use client'
-
 import { CartContextType, CartItem } from '@/types/Cart'
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
@@ -16,6 +13,21 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([])
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cartItems')
+    if (storedCart) {
+      setItems(JSON.parse(storedCart))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (items.length > 0) {
+      localStorage.setItem('cartItems', JSON.stringify(items))
+    } else {
+      localStorage.removeItem('cartItems')
+    }
+  }, [items])
 
   const addToCart = useCallback((newItem: Omit<CartItem, 'quantity'>) => {
     setItems((prevItems) => {
