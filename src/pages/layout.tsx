@@ -1,9 +1,8 @@
 // src/components/RootLayout.tsx
 'use client';
 
-import { Header } from '@/components/layout/Header';
-import { CartProvider } from '../context/cart';
 import Footer from '@/components/layout/footer/Footer';
+import { Header } from '@/components/layout/Header';
 
 export default function RootLayout({
   children,
@@ -11,7 +10,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <CartProvider>
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow container mx-auto px-6 py-8">
@@ -19,6 +17,5 @@ export default function RootLayout({
         </main>
         <Footer />
       </div>
-    </CartProvider>
   );
 }

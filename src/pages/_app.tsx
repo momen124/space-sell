@@ -1,3 +1,4 @@
+import { CartProvider } from "@/context/cart";
 import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
@@ -12,7 +13,9 @@ export default function App({
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <CartProvider>
+          <Component {...pageProps} />
+        </CartProvider>
       </SessionProvider>
     </QueryClientProvider>
   );
