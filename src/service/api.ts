@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { axiosInternal } from "@/config/axios";
+import { env } from "@/config/Env.mjs";
 import { QueryUserType } from "@/utils/decorators/queryable.decorator";
-import axios, { AxiosInstance } from "axios";
+import { AxiosInstance } from "axios";
 
 type ApiConfig = {
   baseUrl?: string;
 };
 
 const DEFAULT_CONFIG = {
-  baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseUrl: env.NEXT_PUBLIC_FRONTEND_URL,
 };
 
 class Api {
@@ -16,18 +18,7 @@ class Api {
 
   constructor(config: ApiConfig = DEFAULT_CONFIG) {
     this.config = config;
-    this.api = axios.create({
-      baseURL: this.config.baseUrl,
-    });
-
-    this.api.interceptors.request.use(
-      (c) => {
-        return c;
-      },
-      (error: unknown) => {
-        return Promise.reject(error);
-      }
-    );
+    this.api = axiosInternal;
   }
 
   getQueryOptions<T extends keyof this, M extends (...args: any[]) => any>(

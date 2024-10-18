@@ -1,4 +1,4 @@
-import React from "react";
+'use client'
 import { RegisterForm } from "@/components/forms/RegisterForm";
 import RootLayout from "../layout";
 

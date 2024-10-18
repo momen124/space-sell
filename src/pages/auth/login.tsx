@@ -1,6 +1,5 @@
-import React from "react";
-import RootLayout from "../layout";
 import { LoginForm } from "@/components/forms/LoginForm";
+import RootLayout from "../layout";
 
 export default function SignUpPage() {
   return (
@@ -12,8 +11,7 @@ export default function SignUpPage() {
         {/* Form Section */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-8">
           <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Create an account</h2>
-            <p className="text-gray-600 mb-6">Enter your details below</p>
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Sign In</h2>
             <LoginForm />
           </div>
         </div>
