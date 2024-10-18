@@ -8,13 +8,35 @@ import RootLayout from '../../components/layout/RootLayout';
 
 
 const allProducts: Product[] = [
-  { id: "1", title: "Phone A", price: "$300", imgSrc: "https://picsum.photos/200/300", category: "electronics", link: "/product/1" },
-  { id: "2", title: "Desktop A", price: "$800", imgSrc: "https://picsum.photos/200/300", category: "electronics", link: "/product/2" },
-  { id: "3", title: "SmartWatch A", price: "$150", imgSrc: "https://picsum.photos/200/300", category: "electronics", link: "/product/3" },
-  { id: "4", title: "Car B", price: "$5000", imgSrc: "https://picsum.photos/200/300", category: "vehicles", link: "/product/4" },
-  { id: "5", title: "Luxury Sofa", price: "$1000", imgSrc: "https://picsum.photos/200/300", category: "furniture", link: "/product/5" },
-  { id: "6", title: "Family House", price: "$50000", imgSrc: "https://picsum.photos/200/300", category: "real-estate", link: "/product/6" },
+  {
+    id: "8",
+    title: "Lenovo",
+    price: "$999",
+    oldPrice: "$1200",
+    imgSrc: "https://imgs.search.brave.com/KJ9OEj43DOZo7LUCiOf8459f7pWfhFSlxiEgXuw4tC8/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9waXNj/ZXMuYmJ5c3RhdGlj/LmNvbS9pbWFnZTIv/QmVzdEJ1eV9VUy9p/bWFnZXMvcHJvZHVj/dHMvNjU0OS82NTQ5/NzE3X3NkLmpwZztt/YXhIZWlnaHQ9MTUw/O21heFdpZHRoPTMw/MDtmb3JtYXQ9d2Vi/cA",
+    link: "/product/8",
+    category: "electronics", // Added category field
+  },
+  {
+    id: "9",
+    title: "Samsung Galaxy S21",
+    price: "$799",
+    location: "Manhattan, NY",
+    imgSrc: "https://imgs.search.brave.com/b8jS5nnrFKJ8L7gdbqBWK0V9CdHy09oj_Fe9l_Gp1EE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/OTEtaW1nLmNvbS9n/YWxsZXJ5X2ltYWdl/c191cGxvYWRzL2Mv/Zi9jZmI3NTBiOWI0/OTUxNjRlMzQ0NDNj/YThlNTgyM2I1MWE0/YjQ2YTRlLmpwZz90/cj1oLTU1MCx3LTAs/Yy1hdF9tYXg",
+    link: "/listing/9",
+    category: "electronics", // Added category field
+  },
+  {
+    id: "11",
+    title: "Sony WH-1000XM4 Wireless Headphones",
+    price: "$348",
+    location: "Boston, MA",
+    imgSrc: "https://m.media-amazon.com/images/I/71o8Q5XJS5L._AC_SL1500_.jpg",
+    link: "/listing/11",
+    category: "electronics", // Added category field
+  },
 ];
+
 
 
 const CategoryPage: React.FC<CategoryPageProps> = ({ categoryName, products }) => {

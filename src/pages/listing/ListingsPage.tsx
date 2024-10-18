@@ -3,16 +3,60 @@ import ProductSection from '@/components/common/ProductSection';
 import { listingService } from '@/service/listingService';
 import { useEffect, useState } from 'react';
 import RootLayout from '../../components/layout/RootLayout';
-// Import a mock listing service (replace with your API call)
 
+// Updated mock listings with electronics and furniture
 const mockListings = [
-  { id: "1", title: "Spaceship X2000", price: "999999", category: "Vehicles", imgSrc: "https://picsum.photos/300/200?random=1", rating: 4.5 },
-  { id: "2", title: "Moon Rover", price: "50000", category: "Vehicles", imgSrc: "https://picsum.photos/300/200?random=2", rating: 4.0 },
-  { id: "3", title: "Space Suit", price: "25000", category: "Equipment", imgSrc: "https://picsum.photos/300/200?random=3", rating: 3.5 },
-  { id: "4", title: "Laser Gun", price: "5000", category: "Weapons", imgSrc: "https://picsum.photos/300/200?random=4", rating: 4.8 },
-  { id: "5", title: "Oxygen Tank", price: "1000", category: "Equipment", imgSrc: "https://picsum.photos/300/200?random=5", rating: 3.0 },
-];
+  {
+    id: "9",
+    title: "Samsung Galaxy S21",
+    price: "$799",
+    location: "Manhattan, NY",
+    imgSrc: "https://imgs.search.brave.com/b8jS5nnrFKJ8L7gdbqBWK0V9CdHy09oj_Fe9l_Gp1EE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/OTEtaW1nLmNvbS9n/YWxsZXJ5X2ltYWdl/c191cGxvYWRzL2Mv/Zi9jZmI3NTBiOWI0/OTUxNjRlMzQ0NDNj/YThlNTgyM2I1MWE0/YjQ2YTRlLmpwZz90/cj1oLTU1MCx3LTAs/Yy1hdF9tYXg",
+    link: "/listing/9",
+},
+{
+    id: "10",
+    title: "Leather Sofa",
+    price: "$499",
+    location: "Brooklyn, NY",
+    imgSrc: "https://imgs.search.brave.com/HqhDkMqsKcLPyiYobupW2xS4cEn51UlXqHVAqz8Scj0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jYi5z/Y2VuZTcuY29tL2lz/L2ltYWdlL0NyYXRl/L0JhcnJldHRJSUx0/aDEwM0dyZFNmQWxl/U09TU1MyNC8kd2Vi/X3BscF9jYXJkJC8y/NDAyMDExNDQ2MDMv/YmFycmV0dC1paS1s/ZWF0aGVyLXNvZmEt/MTAzLmpwZw",
+    link: "/listing/10",
+},
+{
+    id: "11",
+    title: "Sony WH-1000XM4 Wireless Headphones",
+    price: "$348",
+    location: "Boston, MA",
+    imgSrc: "https://m.media-amazon.com/images/I/71o8Q5XJS5L._AC_SL1500_.jpg",
+    link: "/listing/11",
+},
+{
+    id: "12",
+    title: "Apple MacBook Air M1",
+    price: "$999",
+    location: "Queens, NY",
+    imgSrc: "https://imgs.search.brave.com/lFjyk2yms0etnacLCFFBQfz77Gl56-duCdKEFe12q4c/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzE2QXJ6TGVKMkwu/anBn",
+    link: "/listing/12",
+},
 
+{
+  id: "5",
+  title: "purfume",
+  price: "$260",
+  oldPrice: "$360",
+  imgSrc: "https://imgs.search.brave.com/gJY3q2Ashc79rOu-Wt4u6b8mkraqKiYHpvVKIj29d10/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ3/NTAzMDczL3Bob3Rv/L3BlcmZ1bWUuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPTZv/VFAzZ3ZpM3R2Zjla/cWEtcWpyWi1Gc2lm/X0FvdlpJbjRfSVpz/cENMV2c9",
+  link: "/product/5",
+},
+{
+  id: "6",
+  title: "Gucci Duffle Bag",
+  price: "$960",
+  oldPrice: "$1160",
+  imgSrc: "https://imgs.search.brave.com/dMV3tF2Uq7bfe1xZEBrzXxNTU5Ues1vMOGS74eqOj8Y/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLmV0/c3lzdGF0aWMuY29t/LzIwNTg5OTkyL3Iv/aWwvMWY1MGE2LzQx/OTgwMzcxNzkvaWxf/NjAweDYwMC40MTk4/MDM3MTc5X2lzbzQu/anBn",
+  link: "/product/6",
+},
+
+];
 export default function ListingsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('all');
@@ -30,7 +74,8 @@ export default function ListingsPage() {
       }
     };
 
-    fetchListings();
+    // Uncomment the line below if you want to fetch from a service
+    // fetchListings();
   }, []);
 
   const filteredListings = listings
@@ -56,7 +101,7 @@ export default function ListingsPage() {
             category={category}
             setCategory={setCategory}
             setSortOption={setSortOption}
-            onApplyFilters={(f)=>{console.log(f)}}
+            onApplyFilters={() => {}}
           />
         </aside>
 

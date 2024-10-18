@@ -6,27 +6,28 @@ import FeaturedListingCard from "./FeaturedListingCard ";
 
 const featuredListings: RelatedListing[] = [
     {
-        id: "3",
-        title: "Samsung Galaxy S21",
-        price: "$799",
-        location: "Manhattan, NY",
-        imgSrc: "https://picsum.photos/300/200?random=1",
+      id: "1",
+      title: "Samsung Galaxy S21",
+      price: "$799",
+      location: "Manhattan, NY",
+      imgSrc: "https://images.unsplash.com/photo-1610140463262-3b5d1b6d4d8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHNhbXN1bmclMjBnYWxheHklMjBzMjF8ZW58MHx8fHwxNjc4MTI2NzU2&ixlib=rb-4.0.3&q=80&w=300",
     },
     {
-        id: "4",
-        title: "Leather Sofa",
-        price: "$499",
-        location: "Brooklyn, NY",
-        imgSrc: "https://picsum.photos/300/200?random=2",
+      id: "2",
+      title: "iPhone 12 Pro Max",
+      price: "$999",
+      location: "Brooklyn, NY",
+      imgSrc: "https://images.unsplash.com/photo-1604200211273-9c60d8ff1161?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGlwaG9uZSUyMDEyfGVufDB8fHx8MTY3ODEyNjg0MA&ixlib=rb-4.0.3&q=80&w=300",
     },
     {
-        id: "5",
-        title: "2018 Honda Accord",
-        price: "$22,000",
-        location: "Queens, NY",
-        imgSrc: "https://picsum.photos/300/200?random=3",
+      id: "3",
+      title: "Google Pixel 6",
+      price: "$699",
+      location: "Queens, NY",
+      imgSrc: "https://images.unsplash.com/photo-1631057213231-c641e30233d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGdvb2dsZSUyMHBpeGVsJTIwNnx8ZW58MHx8fHwxNjc4MTI2ODc5&ixlib=rb-4.0.3&q=80&w=300",
     },
-];
+  ];
+  
 
 const FeaturedListings: React.FC = () => {
     return (

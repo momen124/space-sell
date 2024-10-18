@@ -18,50 +18,61 @@ export const getServerSideProps: GetServerSideProps<
   const listingId = params?.id as string;
   const listing: Listing = {
     id: listingId,
-    title: "iPhone 12 Pro Max",
-    price: "$999",
-    location: "New York, NY",
-    postDate: "2 days ago",
-    seller: { name: "John Doe", avatar: "/path/to/avatar.jpg" },
+    title: "MacBook Pro 14-inch",
+    price: "$1,999",
+    location: "San Francisco, CA",
+    postDate: "3 days ago",
+    seller: { name: "Jane Smith", avatar: "https://via.placeholder.com/80" },
     images: [
-      "https://picsum.photos/800/600?random=1",
-      "https://picsum.photos/800/600?random=2",
-      "https://picsum.photos/800/600?random=3",
+      "https://imgs.search.brave.com/lFjyk2yms0etnacLCFFBQfz77Gl56-duCdKEFe12q4c/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzE2QXJ6TGVKMkwu/anBn",
+      "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp14-spacegray-gallery1-202110?wid=400&hei=400&fmt=jpeg&qlt=95&.v=1632788573000",
+      "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp14-spacegray-gallery3-202110?wid=400&hei=400&fmt=jpeg&qlt=95&.v=1632788573000",
     ],
     description:
-      "The iPhone 12 Pro Max is the largest iPhone in Apple’s 2020 lineup. It features a 6.7-inch Super Retina XDR OLED display...",
+      "The MacBook Pro 14-inch is equipped with the M1 Pro chip, offering exceptional performance and battery life for power users.",
     features: [
-      "6.7-inch Super Retina XDR OLED display",
-      "A14 Bionic chip",
-      "5G capable",
-      "Pro camera system (12MP ultra wide, wide, and telephoto)",
-      "LiDAR Scanner for improved AR experiences",
-      "Face ID for secure authentication",
-      "iOS 14",
+      "14-inch Liquid Retina XDR display",
+      "Apple M1 Pro chip",
+      "16GB RAM",
+      "512GB SSD",
+      "Thunderbolt 4 ports",
+      "macOS Monterey",
+      "Backlit Magic Keyboard",
     ],
   };
 
   const relatedListings: RelatedListing[] = [
     {
       id: "1",
-      title: "iPhone 11 Pro",
-      price: "$699",
-      location: "Brooklyn, NY",
-      imgSrc: "https://picsum.photos/300/200?random=4",
+      title: "iPhone 13",
+      price: "$799",
+      location: "Los Angeles, CA",
+      imgSrc:
+        "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-select-2021?wid=400&hei=400&fmt=jpeg&qlt=95&.v=1645572315917",
     },
     {
       id: "2",
-      title: "Samsung Galaxy S21",
-      price: "$799",
-      location: "Manhattan, NY",
-      imgSrc: "https://picsum.photos/300/200?random=5",
+      title: "Bose Portable Speaker",
+      price: "$299",
+      location: "New York, NY",
+      imgSrc:
+        "https://m.media-amazon.com/images/I/61n3e-DfZ+L._AC_SX425_.jpg",
     },
     {
       id: "3",
-      title: "Google Pixel 5",
-      price: "$649",
-      location: "Queens, NY",
-      imgSrc: "https://picsum.photos/300/200?random=6",
+      title: "HP Spectre x360",
+      price: "$1,299",
+      location: "Chicago, IL",
+      imgSrc:
+        "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c06205999.png",
+    },
+    {
+      id: "4",
+      title: "Samsung Galaxy Buds Pro",
+      price: "$149",
+      location: "Boston, MA",
+      imgSrc:
+        "https://images.samsung.com/is/image/samsung/p6pim/un/galaxy-buds-pro-sm-r190nzkamea/gallery/un-galaxy-buds-pro-r190-371449-sm-r190nzkamea-368762763?$650_519_PNG$",
     },
   ];
 
