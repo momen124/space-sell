@@ -1,6 +1,6 @@
 'use client'
 import { RegisterForm } from "@/components/forms/RegisterForm";
-import RootLayout from "../layout";
+import RootLayout from "../../components/layout/RootLayout";
 
 export default function SignUpPage() {
   return (

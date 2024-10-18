@@ -1,13 +1,13 @@
 // src/components/Header.tsx
 'use client';
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useCart } from '@/context/cart'; // Import the cart context
+import { Bell, PlusCircle, Rocket, Search, ShoppingCart, User } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Rocket, Search, User, ShoppingCart, PlusCircle, Bell } from 'lucide-react';
-import { useCart } from '@/context/cart'; // Import the cart context
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -58,7 +58,7 @@ export function Header() {
         
         {/* Navigation and Profile Menu */}
         <nav className="flex items-center space-x-6">
-          <Link href="/notification/notificationpage" passHref>
+          <Link href="#" passHref>
             <Button variant="ghost" className="p-2">
               <Bell className="h-5 w-5" />
             </Button>
@@ -73,7 +73,7 @@ export function Header() {
               )}
             </Button>
           </Link>
-          <Link href="/create-listing" passHref>
+          <Link href="/listing/create-listing" passHref>
             <Button variant="ghost" className="p-2">
               <PlusCircle className="h-5 w-5" />
             </Button>

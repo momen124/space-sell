@@ -1,9 +1,7 @@
 import React from 'react';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
-import UserProfile from '../components/profile/UserProfile';
+import RootLayout from '../../components/layout/RootLayout';
 import UserListings from '../components/profile/UserListings';
-import RootLayout from '../layout';
+import UserProfile from '../components/profile/UserProfile';
 
 const Profile: React.FC = () => {
     return (

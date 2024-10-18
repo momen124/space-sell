@@ -1,8 +1,8 @@
-import React from "react";
-import Link from "next/link";
 import { useCart } from "@/context/cart"; // Make sure the path to your cart context is correct
-import FeaturedListingCard from "../listings/FeaturedListingCard ";
 import { Product, ProductSectionProps } from "@/types/ProductSection";
+import Link from "next/link";
+import React from "react";
+import FeaturedListingCard from "../listings/FeaturedListingCard ";
 
 const ProductSection: React.FC<ProductSectionProps> = ({
   title,

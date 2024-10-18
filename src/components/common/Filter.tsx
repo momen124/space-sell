@@ -1,13 +1,20 @@
 // src/components/AdvancedFilter.tsx
-import React, { useState } from "react";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
-import DatePicker from "react-datepicker";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AdvancedFilter: React.FC<{ onApplyFilters: (filters: any) => void }> = ({ onApplyFilters }) => {
+type FiltersType = {
+  sortOption: string,
+  category: string,
+  priceRange: { min: string, max: string },
+  brand: string,
+  fromDate: Date | null,
+  toDate: Date | null,
+}
+
+const AdvancedFilter: React.FC<{ onApplyFilters: (filters: FiltersType) => void }> = ({ onApplyFilters }) => {
   const [sortOption, setSortOption] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });

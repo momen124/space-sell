@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { useCart } from '@/context/cart';
-import RootLayout from '../layout';
+import React, { useState } from 'react';
+import RootLayout from '../../components/layout/RootLayout';
 
 const CheckoutPage: React.FC = () => {
   const { items, totalPrice } = useCart();

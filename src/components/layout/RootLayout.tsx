@@ -1,6 +1,3 @@
-// src/components/RootLayout.tsx
-'use client';
-
 import Footer from '@/components/layout/footer/Footer';
 import { Header } from '@/components/layout/Header';
 

@@ -1,5 +1,5 @@
 import { LoginForm } from "@/components/forms/LoginForm";
-import RootLayout from "../layout";
+import RootLayout from "../../components/layout/RootLayout";
 
 export default function SignUpPage() {
   return (

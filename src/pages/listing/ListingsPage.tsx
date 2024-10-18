@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import AdvancedFilter from '@/components/common/Filter';
 import ProductSection from '@/components/common/ProductSection';
-import RootLayout from '../layout';
 import { listingService } from '@/service/listingService';
+import { useEffect, useState } from 'react';
+import RootLayout from '../../components/layout/RootLayout';
 // Import a mock listing service (replace with your API call)
 
 const mockListings = [
@@ -59,6 +56,7 @@ export default function ListingsPage() {
             category={category}
             setCategory={setCategory}
             setSortOption={setSortOption}
+            onApplyFilters={(f)=>{console.log(f)}}
           />
         </aside>
 

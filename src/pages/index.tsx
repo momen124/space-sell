@@ -1,11 +1,11 @@
-import React from "react";
-import HeroSection from "../components/hero/HeroSection";
-import CategoriesSection from "../components/categories/CategoriesSection";
-import HowItWorks from "../components/howItWorks/HowItWorks";
-import ProductSection from "../components/common/ProductSection";
-import ServiceFeaturesSection from "@/components/Home/ServiceFeaturesSection";
 import NewArrivalSection from "@/components/Home/NewArrivalSection";
-import RootLayout from "./layout";
+import ServiceFeaturesSection from "@/components/Home/ServiceFeaturesSection";
+import React from "react";
+import CategoriesSection from "../components/categories/CategoriesSection";
+import ProductSection from "../components/common/ProductSection";
+import HeroSection from "../components/hero/HeroSection";
+import HowItWorks from "../components/howItWorks/HowItWorks";
+import RootLayout from "../components/layout/RootLayout";
 
 const HomePage: React.FC = () => {
     // Mock Data for Products
