@@ -15,7 +15,6 @@ import { registerSchema } from "@/schema/registerSchema";
 import { authService } from "@/service/authService";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaGoogle } from "react-icons/fa";
 
 export function RegisterForm() {
   const router = useRouter()
@@ -125,14 +124,6 @@ export function RegisterForm() {
             : isPendingRegister
             ? "Registering..."
             : "Create Account"}
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full flex items-center justify-center space-x-2"
-        >
-          <FaGoogle className="h-5 w-5 text-red-500" />
-          <span>Sign up with Google</span>
         </Button>
         <div className="text-center text-sm mt-4">
           Already have an account?{" "}

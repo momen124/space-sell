@@ -12,7 +12,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useForms } from "@/hooks/useForms/useForms";
 import { loginSchema } from "@/schema/loginSchema";
 import Link from "next/link";
-import { FaGoogle } from "react-icons/fa";
 
 export function LoginForm() {
 
@@ -59,11 +58,6 @@ export function LoginForm() {
         />
         <Button type="submit" className="w-full bg-red-600 text-white hover:bg-red-700" loading={isSigningIn}>
           Sign In
-        </Button>
-        <Button 
-          type="button" variant="outline" className="w-full flex items-center justify-center space-x-2">
-          <FaGoogle className="h-5 w-5 text-red-500" />
-          <span>Sign in with Google</span>
         </Button>
         <div className="text-center text-sm mt-4">
           {`Don't have an account? `}
