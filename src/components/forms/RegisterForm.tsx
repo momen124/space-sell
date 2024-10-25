@@ -1,88 +1,146 @@
-'use client'
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForms } from "@/hooks/useForms/useForms";
+import { useMutation } from "@/hooks/useMutation";
+import { modals } from "@/packages/modals";
+import { registerSchema } from "@/schema/registerSchema";
+import { authService } from "@/service/authService";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FaGoogle } from "react-icons/fa";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNotification } from '@/context/notificationContext'
-import { registerSchema } from '@/schema/registerSchema'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useRouter } from 'next/navigation'
-
-type RegisterFormData = z.infer<typeof registerSchema>
-
-export default function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false)
+export function RegisterForm() {
   const router = useRouter()
-  const { addNotification } = useNotification()
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
-  })
 
-  const onSubmit = async (data: RegisterFormData) => {
-    setIsLoading(true)
-    try {
-      console.log('Registration data:', data)
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulating API call
-      addNotification('success', 'Registered successfully! Please log in.')
-      router.push('/login')
-    } catch (error) {
-      addNotification('error', 'Failed to register. Please try again.')
-    } finally {
-      setIsLoading(false)
+  const { mutate: register, isPending: isPendingRegister } = useMutation({
+    mutationFn: authService.register,
+    onSuccess: async () => {
+      modals.open({
+        id: "",
+        title: "Registration Successful",
+        subTitle: "Please check your email to verify your account",
+        primaryButtonAction() {
+          router.push(`/auth/login`);
+        },
+      })
     }
-  }
+  });
+  const { mutateAsync: verify, isPending: isPendingVerify } = useMutation({
+    mutationFn: authService.verify,
+    onSuccess: async (payload) => {
+       register(payload);
+    },
+  });
+
+  const form = useForms({
+    onSubmit: verify,
+    validationSchema: registerSchema,
+    initialValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      birthDate: new Date().toISOString(),
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Label htmlFor="name">Name</Label>
-        <Input
-          id="name"
-          type="text"
-          placeholder="Your name"
-          {...register('name')}
-          className={errors.name ? 'border-red-500' : ''}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your name" {...field} onChange={(e) => {field.onChange(e)}} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
-      </div>
-      <div>
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="you@example.com"
-          {...register('email')}
-          className={errors.email ? 'border-red-500' : ''}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-      </div>
-      <div>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          {...register('password')}
-          className={errors.password ? 'border-red-500' : ''}
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-      </div>
-      <div>
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          {...register('confirmPassword')}
-          className={errors.confirmPassword ? 'border-red-500' : ''}
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Confirm your password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.confirmPassword && (
-          <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
-        )}
-      </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? 'Registering...' : 'Register'}
-      </Button>
-    </form>
-  )
+        <Button
+          type="submit"
+          disabled={isPendingRegister || isPendingVerify}
+          className="text-white w-full bg-red-600 hover:bg-red-700"
+        >
+          {isPendingVerify
+            ? "Verifying..."
+            : isPendingRegister
+            ? "Registering..."
+            : "Create Account"}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full flex items-center justify-center space-x-2"
+        >
+          <FaGoogle className="h-5 w-5 text-red-500" />
+          <span>Sign up with Google</span>
+        </Button>
+        <div className="text-center text-sm mt-4">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="text-blue-600 hover:underline">
+            Log in
+          </Link>
+        </div>
+      </form>
+    </Form>
+  );
 }

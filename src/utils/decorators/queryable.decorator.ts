@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type QueryUserType = "user" | "admin";
+
+import { UserType } from "@/types/user";
+
+type QueryUserType = UserType;
 
 function Queryable(userType: QueryUserType, otherKeys: string | string[]) {
   return function (
@@ -22,4 +24,3 @@ function Queryable(userType: QueryUserType, otherKeys: string | string[]) {
 
 export { Queryable };
 export type { QueryUserType };
-

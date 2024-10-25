@@ -1,50 +1,51 @@
+import { axiosInternal } from "@/config/axios";
+import { CreateListingSchemaType } from "@/schema/createListingSchema";
+import { Listing } from "@/types/Listing";
 import { Queryable } from "@/utils/decorators/queryable.decorator";
 import { Api } from "./api";
-import { Listing } from '@/types/listing';
-
-const mockData: Listing[] = [
-  {
-    id: "1",
-    title: "Spaceship X2000",
-    price: 999999,
-    description: "A state-of-the-art spaceship with warp drive capabilities.",
-    seller: "Elon Musk",
-    image: "/placeholder.svg?height=400&width=600",
-  },
-  {
-    id: "2",
-    title: "Moon Rover",
-    price: 50000,
-    description: "Explore the lunar surface with this robust moon rover.",
-    seller: "NASA",
-    image: "/placeholder.svg?height=400&width=600",
-  },
-  {
-    id: "3",
-    title: "Space Suit",
-    price: 25000,
-    description: "Advanced space suit for extraterrestrial missions.",
-    seller: "SpaceX",
-    image: "/placeholder.svg?height=400&width=600",
-  },
-];
 
 class ListingService extends Api {
   @Queryable("user", [])
-  async getListings(): Promise<Listing[]> {
+  async getListings(_options?: {
+    category?: string | null;
+    sort?: string | null;
+    price?: string | null;
+    isOnSale?: boolean | null;
+    isFeatured?: boolean | null;
+  }): Promise<{ data: Listing[] }> {
+    const { sort, ...options } = _options ?? {};
     try {
-      // const response = await this.api.get("/listings");
+      const filters = Object.entries(options ?? {}).reduce(
+        (acc, [key, value]) => {
+          acc[`filter[${key}]`] = value;
+          return acc;
+        },
+        {} as Record<string, any>
+      );
 
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate API call
-      return mockData;
+      const response = await axiosInternal.get("/listings", {
+        params: { sort, ...filters },
+      });
+
+      return response.data;
+    } catch (error) {
+      throw error; // Consider logging the error here for better debugging
+    }
+  }
+
+  async createListing(listingData: CreateListingSchemaType): Promise<Listing> {
+    try {
+      const response = await axiosInternal.post("/listings", listingData);
+      return response.data;
     } catch (error) {
       throw error;
     }
   }
 
-  async createListing(listingData: Listing): Promise<Listing> {
+  @Queryable("user", [])
+  async getListingDetails(id: string): Promise<{ data: Listing }> {
     try {
-      const response = await this.api.post("/listings", listingData);
+      const response = await axiosInternal.get(`/listings/${id}`);
       return response.data;
     } catch (error) {
       throw error;

@@ -1,43 +1,63 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { listingService } from '@/service/listingService';
-import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
+// pages/index.tsx
 
-export default function Home() {
-  const {isLoading, data} = useQuery(listingService.getQueryOptions("getListings"))
+import NewArrivalSection from "@/components/Home/NewArrivalSection";
+import ServiceFeaturesSection from "@/components/Home/ServiceFeaturesSection";
+import { listingService } from "@/service/listingService";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import CategoriesSection from "../components/categories/CategoriesSection";
+import ProductSection from "../components/common/ProductSection";
+import HeroSection from "../components/hero/HeroSection";
+import HowItWorks from "../components/howItWorks/HowItWorks";
 
-  if (isLoading) {
-    return <div>Loading...</div>; // Optional loading state
-  }
+const HomePage: React.FC = () => {
+  const { data: flashSaleProducts, isLoading: isLoadingFlashSale } = useQuery(
+    listingService.getQueryOptions("getListings", { isOnSale: true })
+  );
+
+  const { data: featuredProducts, isLoading: isLoadingFeaturedProducts } =
+    useQuery(
+      listingService.getQueryOptions("getListings", { isFeatured: true })
+    );
+
+  const { data: bestSellingProducts, isLoading: isLoadingBestSelling } =
+    useQuery(
+      listingService.getQueryOptions("getListings", { isFeatured: true })
+    );
 
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-4xl font-bold text-center my-8">Welcome to Space Sell</h1>
-
-      {/* <div className="flex justify-center mb-8">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="text" placeholder="Search for items..." />
-          <Button type="submit">Search</Button>
-        </div>
-      </div> */}
-
-      <h2 className="text-2xl font-semibold mb-4">Featured Listings</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {data?.map((listing) => (
-          <Link href={`/listing/${listing.id}`} key={listing.id} className="border p-4 rounded-lg hover:shadow-md transition-shadow">
-            <img src={listing.image} alt={listing.title} className="w-full h-40 object-cover mb-2 rounded" />
-            <h3 className="font-semibold">{listing.title}</h3>
-            <p className="text-lg font-bold text-green-600">{listing.price}</p>
-          </Link>
-        ))}
-      </div>
-
-      <div className="text-center mt-8">
-        <Button asChild>
-          <Link href="/create-listing">Create a Listing</Link>
-        </Button>
-      </div>
-    </div>
+    <>
+      <main className="container mx-auto px-4 py-8">
+        <HeroSection />
+        <CategoriesSection />
+        <ProductSection
+          title="Flash Sales"
+          products={flashSaleProducts?.data}
+          isLoading={isLoadingFlashSale}
+          countdownTimer={new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate() + 1
+          ).toISOString()}
+        />
+        <ProductSection
+          title="Featured Listings"
+          isLoading={isLoadingFeaturedProducts}
+          products={featuredProducts?.data}
+        />
+        <ProductSection
+          title="Best Selling Products"
+          subtitle="This Month"
+          isLoading={isLoadingBestSelling}
+          products={bestSellingProducts?.data}
+          viewAllLink="/listings"
+        />
+        <NewArrivalSection />
+        <ServiceFeaturesSection />
+        <HowItWorks />
+      </main>
+    </>
   );
-}
+};
+
+export default HomePage;

@@ -1,8 +1,8 @@
-import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
+import * as React from "react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/cn"
 
 const Select = SelectPrimitive.Root
 
@@ -145,14 +145,69 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
+  Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue
 }
+
+
+interface Option {
+  value: string
+  label: string
+}
+
+interface SelectInputProps {
+  options: Option[]
+  placeholder?: string
+  value?: string
+  onChange?: (value: string) => void
+  defaultValue?: string
+  label?: string
+  disabled?: boolean
+}
+
+const SelectInput: React.FC<SelectInputProps> = ({
+  options,
+  placeholder = "Select an option",
+  onChange,
+  defaultValue,
+  value, 
+  label,
+  disabled = false
+}) => {
+  const [selectedValue, setSelectedValue] = React.useState<string | undefined>(defaultValue)
+
+  // Update the state when the value prop changes
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setSelectedValue(value)
+    }
+  }, [value])
+
+  const handleChange = (newValue: string) => {
+    setSelectedValue(newValue)
+    if (onChange) {
+      onChange(newValue)
+    }
+  }
+
+  return (
+    <div className="flex flex-col space-y-1.5">
+      {label && <label className="text-sm font-medium">{label}</label>}
+      <Select value={selectedValue} onValueChange={handleChange} disabled={disabled}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent className="bg-white">
+          <SelectGroup>
+            {options?.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
+  )
+}
+
+export { SelectInput }

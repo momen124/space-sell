@@ -1,22 +1,53 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
-import { NotificationProvider } from '@/context/notification'
-import { CartProvider } from '@/context/cart'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import RootLayout from "@/components/layout/RootLayout";
+import { CartProvider } from "@/context/cart";
+import unAuthorizedHandler from "@/hooks/useMutation/unauthed";
+import { ModalProvider } from "@/packages/modals";
+import "@/styles/globals.css";
+import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
+
+const queryCache = new QueryCache({
+  onError: err => {
+    if (err instanceof AxiosError) {
+      unAuthorizedHandler(err);
+    }
+  },
+});
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnMount(query) {
+        return !query.isStale();
+      },
+      staleTime: 4 * 60 * 1000,
+      refetchOnWindowFocus(query) {
+        return !query.isStale();
+      },
+    },
+  },
+  queryCache,
+})
+
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
+
   return (
-    <NotificationProvider>
-      <CartProvider>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider session={session}>
+        <ModalProvider>
+          <CartProvider>
+            <RootLayout>
             <Component {...pageProps} />
-          </main>
-          <Footer />
-        </div>
-      </CartProvider>
-    </NotificationProvider>
-  )
+            </RootLayout>
+          </CartProvider>
+        </ModalProvider>
+      </SessionProvider>
+    </QueryClientProvider>
+  );
 }

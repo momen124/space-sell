@@ -1,65 +1,77 @@
-'use client'
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
+import { useForms } from "@/hooks/useForms/useForms";
+import { loginSchema } from "@/schema/loginSchema";
+import Link from "next/link";
+import { FaGoogle } from "react-icons/fa";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNotification } from '@/context/notificationContext'
-import { loginSchema } from '@/schema/loginSchema'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useRouter } from 'next/navigation'
+export function LoginForm() {
 
-type LoginFormData = z.infer<typeof loginSchema>
+  const { signIn, isSigningIn } = useAuth()
 
-export default function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const { addNotification } = useNotification()
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  })
-
-  const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true)
-    try {
-      console.log('Login data:', data)
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulating API call
-      addNotification('success', 'Logged in successfully!')
-      router.push('/')
-    } catch (error) {
-      addNotification('error', 'Failed to log in. Please try again.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  const form = useForms({
+    validationSchema: loginSchema,
+    initialValues: {
+      email: "",
+      password: "",
+      userType: "user",
+    },
+    onSubmit: signIn
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="you@example.com"
-          {...register('email')}
-          className={errors.email ? 'border-red-500' : ''}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email or Phone Number</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your email or phone number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-      </div>
-      <div>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          {...register('password')}
-          className={errors.password ? 'border-red-500' : ''}
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="Enter your password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-      </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? 'Logging in...' : 'Log in'}
-      </Button>
-    </form>
-  )
+        <Button type="submit" className="w-full bg-red-600 text-white hover:bg-red-700" loading={isSigningIn}>
+          Sign In
+        </Button>
+        <Button 
+          type="button" variant="outline" className="w-full flex items-center justify-center space-x-2">
+          <FaGoogle className="h-5 w-5 text-red-500" />
+          <span>Sign in with Google</span>
+        </Button>
+        <div className="text-center text-sm mt-4">
+          {`Don't have an account? `}
+          <Link href="/auth/register" className="text-blue-600 hover:underline">
+            Sign Up
+          </Link>
+        </div>
+      </form>
+    </Form>
+  );
 }

@@ -1,12 +1,20 @@
-import LoginForm from '@/components/forms/LoginForm'
+import { LoginForm } from "@/components/forms/LoginForm";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-2xl font-bold text-center mb-6">Log in to Space Sell</h1>
-        <LoginForm />
+    <>
+      <div className="flex min-h-screen bg-gray-100">
+        {/* Image Section */}
+        <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url('/path/to/your/image.jpg')` }}></div>
+
+        {/* Form Section */}
+        <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+          <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Sign In</h2>
+            <LoginForm />
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    </>
+  );
 }
