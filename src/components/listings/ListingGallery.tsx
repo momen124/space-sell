@@ -7,7 +7,7 @@ const ListingGallery: React.FC<{ images: UploadedAttachment[] }> = ({ images }) 
   return (
     <div className='flex flex-col gap-4'>
     <div className='relative overflow-hidden min-h-80'>
-      <Image src={mainImage?.url} alt="Main listing" fill className="w-full min-h-80 object-cover rounded-lg mb-4" />
+      <Image src={mainImage?.url} alt="Main listing" fill className="w-full min-h-80 object-contain rounded-lg mb-4" />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images?.map((img) => (

@@ -1,5 +1,3 @@
-// pages/listings/[id].tsx
-
 import ListingDescription from "@/components/listings/ListingDescription";
 import ListingDetails from "@/components/listings/ListingDetails";
 import ListingGallery from "@/components/listings/ListingGallery";
@@ -41,6 +39,7 @@ const ListingDetailPage = ({ listingId }: { listingId: string }) => {
             />
           </div>
           <ListingDetails
+            listing={listing?.data}
             title={listing?.data.title}
             price={listing?.data.price ? String(listing?.data.price) : null}
             // location={listing?.data.location}

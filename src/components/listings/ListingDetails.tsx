@@ -1,5 +1,6 @@
+import { useCart } from '@/context/cart';
 import useUser from '@/hooks/useUser';
-import { useRouter } from 'next/router';
+import { Listing } from '@/types/Listing';
 import React, { useState } from 'react';
 
 const ListingDetails: React.FC<{
@@ -8,24 +9,23 @@ const ListingDetails: React.FC<{
   location?: string;
   postDate?: string;
   seller?: { name: string; avatar: string };
-}> = ({ title, price, location, postDate }) => {
+  listing?: Listing
+}> = ({ title, price, location, postDate, listing }) => {
   const {user} = useUser()
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
   // const [selectedColor, setSelectedColor] = useState('M');
-  const router = useRouter();
 
   // const colors = ['S', 'M', 'L', 'XL'];
 
   const handleAddToCart = () => {
-    // Simulate adding to cart, then redirect to the cart page
-    // Here you would normally update the cart state in your application (e.g., Redux or Context API)
-    router.push('/cart');
+    if (listing)
+    addToCart(listing)
   };
 
   const handleBuyNow = () => {
-    // Simulate buying the product by adding to cart, then redirect to the cart page
-    // Here you would normally handle immediate checkout (e.g., Stripe API)
-    router.push('/cart');
+    if (listing)
+    addToCart(listing)
   };
 
   return (
