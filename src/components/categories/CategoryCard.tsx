@@ -1,7 +1,6 @@
-// src/components/CategoryCard.tsx
-import React from "react";
-import Link from "next/link";
 import { CategoryCardProps } from "@/types/Category";
+import Link from "next/link";
+import React from "react";
 
 
 

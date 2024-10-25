@@ -28,6 +28,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem('cartItems')
     }
   }, [items])
+  
 
   const addToCart = useCallback((newItem: Omit<CartItem, 'quantity'>) => {
     setItems((prevItems) => {
@@ -54,6 +55,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const clearCart = useCallback(() => {
     setItems([])
   }, [])
+
+  useEffect(() => {
+    if (items.length > 0) {
+      items?.forEach(i=> {
+        if (i.quantity <= 0) {
+          removeItem(i.id)
+        }
+      })
+    }
+  }, [items])
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0)
   const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0)

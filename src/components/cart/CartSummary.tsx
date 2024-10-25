@@ -1,4 +1,3 @@
-// src/components/cart/CartSummary.tsx
 import { CartSummaryProps } from '@/types/Cart';
 import React from 'react';
 

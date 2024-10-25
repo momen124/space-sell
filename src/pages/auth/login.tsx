@@ -1,9 +1,8 @@
 import { LoginForm } from "@/components/forms/LoginForm";
-import RootLayout from "../../components/layout/RootLayout";
 
 export default function SignUpPage() {
   return (
-    <RootLayout>
+    <>
       <div className="flex min-h-screen bg-gray-100">
         {/* Image Section */}
         <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url('/path/to/your/image.jpg')` }}></div>
@@ -16,6 +15,6 @@ export default function SignUpPage() {
           </div>
         </div>
       </div>
-    </RootLayout>
+    </>
   );
 }

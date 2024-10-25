@@ -1,47 +1,47 @@
-// src/components/ListingDetails.tsx
-import React, { useState } from 'react';
+import useUser from '@/hooks/useUser';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 const ListingDetails: React.FC<{
-  title: string;
-  price: string;
-  location: string;
-  postDate: string;
-  seller: { name: string; avatar: string };
-}> = ({ title, price, location, postDate, seller }) => {
+  title?: string;
+  price?: string | null;
+  location?: string;
+  postDate?: string;
+  seller?: { name: string; avatar: string };
+}> = ({ title, price, location, postDate }) => {
+  const {user} = useUser()
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState('M');
+  // const [selectedColor, setSelectedColor] = useState('M');
   const router = useRouter();
 
-  const colors = ['S', 'M', 'L', 'XL'];
+  // const colors = ['S', 'M', 'L', 'XL'];
 
   const handleAddToCart = () => {
     // Simulate adding to cart, then redirect to the cart page
     // Here you would normally update the cart state in your application (e.g., Redux or Context API)
-    router.push('/cart/CartPage');
+    router.push('/cart');
   };
 
   const handleBuyNow = () => {
     // Simulate buying the product by adding to cart, then redirect to the cart page
     // Here you would normally handle immediate checkout (e.g., Stripe API)
-    router.push('/cart/CartPage');
+    router.push('/cart');
   };
 
   return (
     <div className="md:w-1/3 p-6 bg-white rounded-lg shadow">
       <h1 className="text-3xl font-bold mb-2">{title}</h1>
-      <p className="text-2xl font-semibold text-blue-600 mb-2">{price}</p>
+      <p className="text-2xl font-semibold text-blue-600 mb-2">${price}</p>
       <p className="text-gray-600 mb-2">{location}</p>
-      <p className="text-gray-500 mb-4">Posted {postDate}</p>
+      {postDate && <p className="text-gray-500 mb-4">Posted {new Date(postDate).toLocaleString()}</p>}
 
       {/* Seller Info */}
       <div className="flex items-center mb-4">
-        <img src={seller.avatar} alt="Seller Avatar" className="w-10 h-10 rounded-full mr-2" />
-        <span>{seller.name}</span>
+        <span>{user?.name}</span>
       </div>
 
       {/* Colors */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <span className="font-semibold">Colours: </span>
         <div className="flex space-x-2 mt-2">
           {colors.map((color) => (
@@ -56,7 +56,7 @@ const ListingDetails: React.FC<{
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Quantity Selector */}
       <div className="mb-4 flex items-center">

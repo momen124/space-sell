@@ -1,19 +1,48 @@
-// src/components/FeaturedListingCard.tsx
-import React from "react";
+import { Listing } from "@/types/Listing";
+import Image from "next/image";
 import Link from "next/link";
-import { FeaturedListingCardProps } from "@/types/Listing";
+import { Button } from "../ui/button";
 
+const FeaturedListingCard = ({
+  listing,
+  handleAddToCart,
+}: {
+  listing: Listing;
+  handleAddToCart: (product: Listing) => void;
+}) => {
+  return (
+    <Link
+      href={`/listings/details/${listing.id}`}
+      className="relative flex flex-col gap-4 bg-white rounded-lg shadow p-4 hover:shadow-lg transition"
+    >
+      <div className="relative w-full min-h-48">
+        <Image
+          src={listing.images[0].url}
+          alt={listing.title}
+          className="w-full rounded-t-lg mb-2"
+          fill
+          objectFit="cover"
+        />
+      </div>
+      <h3 className="font-semibold">{listing.title}</h3>
+      <p className="text-gray-600">{listing.price}</p>
 
-
-const FeaturedListingCard: React.FC<FeaturedListingCardProps> = ({ listing }) => {
-    return (
-        <Link href={`/listing/${listing.id}`} className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
-            <img src={listing.imgSrc} alt={listing.title} className="w-full h-48 object-cover rounded-t-lg mb-2" />
-            <h3 className="font-semibold">{listing.title}</h3>
-            <p className="text-gray-600">{listing.price}</p>
-            <p className="text-gray-500">{listing.location}</p>
-        </Link>
-    );
+      <Button onClick={() => handleAddToCart(listing)} variant={"secondary"}>
+        Add to Cart
+      </Button>
+    </Link>
+  );
 };
 
-export default FeaturedListingCard;
+const FeaturedListingCardSkeleton = () => {
+  return (
+    <div className="relative flex flex-col gap-4 bg-white rounded-lg shadow p-4 animate-pulse">
+      <div className="relative w-full min-h-48 bg-gray-200 rounded-lg mb-2" />
+      <div className="h-5 w-3/4 bg-gray-200 rounded" />
+      <div className="h-4 w-1/4 bg-gray-200 rounded" />
+      <div className="h-8 w-full bg-gray-200 rounded mt-4" />
+    </div>
+  );
+};
+
+export { FeaturedListingCard, FeaturedListingCardSkeleton };

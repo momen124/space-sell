@@ -1,15 +1,15 @@
-import React from 'react';
-import Link from 'next/link';
 import { Listing } from '@/types/Listing';
+import Link from 'next/link';
+import React from 'react';
 
 
-const RelatedListings: React.FC<{ listings: Listing[] }> = ({ listings }) => {
+const RelatedListings: React.FC<{ listings?: Listing[] }> = ({ listings }) => {
   return (
     <section className="mt-6">
       <h2 className="text-2xl font-semibold mb-4">Related Listings</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {listings.map((listing) => (
-          <Link href={`/listing/${listing.id}`} key={listing.id}>
+        {listings?.map((listing) => (
+          <Link href={`/listings/details/${listing.id}`} key={listing.id}>
             <div className="border rounded-lg shadow hover:shadow-lg transition p-4">
               <img src={listing.imgSrc} alt={listing.title} className="w-full h-40 object-cover rounded mb-2" />
               <h3 className="font-semibold">{listing.title}</h3>

@@ -1,25 +1,29 @@
-// src/components/CategoriesSection.tsx
-
-import React, { useState } from "react";
+import { categoryService } from "@/service/categoryService";
+import { Category } from "@/types/Category";
+import { cn } from "@/utils/cn";
+import { useQuery } from "@tanstack/react-query";
+import { Camera, Gamepad2, Headphones, Smartphone, Watch } from "lucide-react";
 import Link from "next/link";
-import { ChevronRight, Camera, Smartphone, Watch, Headphones, Gamepad2 } from "lucide-react";
-import { FaDesktop } from "react-icons/fa";
+import React from "react";
+import { FaDesktop, FaQuestion } from "react-icons/fa";
 
-const categories = [
-  { name: "Phones", icon: <Smartphone className="h-6 w-6" />, link: "/category/phones" },
-  { name: "Computers", icon: <FaDesktop className="h-6 w-6" />, link: "/category/computers" },
-  { name: "SmartWatch", icon: <Watch className="h-6 w-6" />, link: "/category/smartwatch" },
-  { name: "Camera", icon: <Camera className="h-6 w-6" />, link: "/category/camera" },
-  { name: "HeadPhones", icon: <Headphones className="h-6 w-6" />, link: "/category/headphones" },
-  { name: "Gaming", icon: <Gamepad2 className="h-6 w-6" />, link: "/category/gaming" },
-];
+const getCategoryIcon = (name: string) =>{ 
+  const categoryIcons = {
+  mobiles: <Smartphone className="h-6 w-6" /> ,
+  computers: <FaDesktop className="h-6 w-6" /> ,
+  smartwatch: <Watch className="h-6 w-6" /> ,
+  cameras: <Camera className="h-6 w-6" /> ,
+  headphones: <Headphones className="h-6 w-6" /> ,
+  gaming: <Gamepad2 className="h-6 w-6" /> ,
+}
+
+return categoryIcons[name.split(' ').join('').toLowerCase() as keyof typeof categoryIcons] ?? <FaQuestion />
+}
 
 const CategoriesSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const {data, isLoading} = useQuery(categoryService.getQueryOptions("getCategories"));
 
-  const handleCategoryClick = (categoryName: string) => {
-    setActiveCategory(categoryName);
-  };
+  const featuredCategories = data?.data.filter((category: Category) => category.isFeatured);
 
   return (
     <section className="mb-12">
@@ -29,17 +33,16 @@ const CategoriesSection: React.FC = () => {
 
       {/* Category Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {categories.map((category, index) => (
-          <Link href={category.link} key={index} passHref>
+        {isLoading && (
+          <>
+          {[...Array(6)].map((_, index) => <div key={index} className="animate-pulse bg-gray-200 rounded-lg min-h-24 w-full"></div>)}</>
+        )}
+        {featuredCategories?.map((category: Category, index: number) => (
+          <Link href={`/category/${category.id}`} key={index} passHref>
             <div
-              onClick={() => handleCategoryClick(category.name)}
-              className={`cursor-pointer flex flex-col items-center border rounded-lg p-4 transition-colors duration-300 ${
-                activeCategory === category.name
-                  ? 'bg-red-500 text-white hover:bg-red-600'
-                  : 'text-black hover:bg-gray-200'
-              }`}
+              className={cn(`cursor-pointer flex flex-col items-center justify-center border min-h-24 rounded-lg p-4 transition-colors duration-300 text-black hover:bg-gray-200`,)}
             >
-              {category.icon}
+              {getCategoryIcon(category.name)}
               <span className="mt-2 font-semibold">{category.name}</span>
             </div>
           </Link>

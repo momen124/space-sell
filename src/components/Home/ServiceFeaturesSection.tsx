@@ -1,7 +1,5 @@
-// src/components/ServiceFeaturesSection.tsx
-
+import { Headphones, ShieldCheck, Truck } from "lucide-react";
 import React from "react";
-import { Truck, Headphones, ShieldCheck } from "lucide-react";
 
 const features = [
   {

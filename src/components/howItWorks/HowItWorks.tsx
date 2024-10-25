@@ -1,8 +1,6 @@
-// src/components/HowItWorks.tsx
-
+import { Step } from "@/types/howItwork";
 import React from "react";
 import HowItWorksCard from "./HowItWorksCard";
-import { Step } from "@/types/howItwork";
 
 
 

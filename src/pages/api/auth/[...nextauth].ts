@@ -1,4 +1,5 @@
 import { axiosExternal } from "@/config/axios";
+import { User } from "@/types/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -21,7 +22,7 @@ export default async function handler(
         async authorize(credentials) {
           const url =
             credentials?.userType === "admin"
-              ? "/console/auth/login"
+              ? "/admin/auth/login"
               : "/auth/login";
 
           try {
@@ -34,7 +35,7 @@ export default async function handler(
             const cookies = response.headers["set-cookie"] ?? [];
             res.setHeader("set-cookie", cookies);
 
-            return response.data.data;
+            return response.data;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (error: any) {
             const message = error?.response?.data?.message ?? error?.message;
@@ -53,7 +54,7 @@ export default async function handler(
     },
 
     pages: {
-      signIn: "/auth/sign-in",
+      signIn: "/auth/login",
       signOut: "/",
       newUser: "/",
       error: "/",
@@ -61,7 +62,7 @@ export default async function handler(
     callbacks: {
       async jwt({ token, user, session, trigger }) {
         let t = token;
-        const u = user as UserModel;
+        const u = user as User;
 
         if (user) {
           t = { ...token, ...u };

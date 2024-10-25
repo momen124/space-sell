@@ -1,160 +1,229 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useNotification } from '../../context/notificationContext'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-
-type Category = {
-  id: string
-  name: string
-  description: string
-}
-
-const mockCategories: Category[] = [
-  { id: '1', name: 'Vehicles', description: 'Spaceships, rovers, and more' },
-  { id: '2', name: 'Equipment', description: 'Tools and gadgets for space exploration' },
-  { id: '3', name: 'Resources', description: 'Fuel, materials, and supplies' },
-  { id: '4', name: 'Real Estate', description: 'Properties on various celestial bodies' },
-]
+import CategoryTable, {
+  getCategoryName,
+} from "@/components/admin/categories/CategoryTable";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { SelectInput } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useForms } from "@/hooks/useForms/useForms";
+import { useMutation } from "@/hooks/useMutation";
+import { adminCategoryService } from "@/service/admin/categoryService";
+import { Category } from "@/types/Category";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import * as z from "zod";
+import { queryClient } from "../_app";
 
 const categorySchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
-})
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  parent: z.string().optional().nullable(),
+  isFeatured: z.boolean(),
+});
 
-type CategoryFormData = z.infer<typeof categorySchema>
+export type CategoryFormData = z.infer<typeof categorySchema>;
 
 export default function CategoryManagementPage() {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null)
-  const { addNotification } = useNotification()
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<CategoryFormData>({
-    resolver: zodResolver(categorySchema),
-  })
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
 
-  useEffect(() => {
-    // In a real app, you would fetch categories from your API
-    setCategories(mockCategories)
-  }, [])
+  const { data, isLoading } = useQuery(
+    adminCategoryService.getQueryOptions("getCategories")
+  );
 
-  const onSubmit = (data: CategoryFormData) => {
-    if (editingCategory) {
-      // Update existing category
-      setCategories(categories.map(cat =>
-        cat.id === editingCategory.id ? { ...cat, ...data } : cat
-      ))
-      addNotification('success', 'Category updated successfully')
-    } else {
-      // Add new category
-      const newCategory = {
-        id: Date.now().toString(),
-        ...data
-      }
-      setCategories([...categories, newCategory])
-      addNotification('success', 'Category added successfully')
-    }
-    reset()
-    setEditingCategory(null)
-  }
+  const { mutateAsync: createOrUpdateCategory } = useMutation({
+    mutationFn: (body: CategoryFormData) =>
+      editingCategory
+        ? adminCategoryService.updateCategory(editingCategory.id, body)
+        : adminCategoryService.createCategory(body),
+    onSuccess: () => {
+      setShowForm(false);
+      setEditingCategory(null);
+      queryClient.invalidateQueries(
+        adminCategoryService.getQueryOptions("getCategories")
+      );
+    },
+  });
 
-  const handleEdit = (category: Category) => {
-    setEditingCategory(category)
-    reset(category)
-  }
+  const initialValues = {
+    name: "",
+    description: "",
+    parent: null,
+    isFeatured: false,
+  };
 
-  const handleDelete = (categoryId: string) => {
-    setCategories(categories.filter(cat => cat.id !== categoryId))
-    addNotification('success', 'Category deleted successfully')
-  }
+  const form = useForms({
+    validationSchema: categorySchema,
+    initialValues,
+    onSubmit: createOrUpdateCategory,
+    resetOnSuccess: true,
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Category Management</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>{editingCategory ? 'Edit Category' : 'Add New Category'}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  {...register('name')}
-                  className={errors.name ? 'border-red-500' : ''}
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  {...register('description')}
-                  className={errors.description ? 'border-red-500' : ''}
-                />
-                {errors.description && (
-                  <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
-                )}
-              </div>
-              <Button type="submit">
-                {editingCategory ? 'Update Category' : 'Add Category'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Existing Categories</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {categories.map((category) => (
-                  <TableRow key={category.id}>
-                    <TableCell>{category.name}</TableCell>
-                    <TableCell>{category.description}</TableCell>
-                    <TableCell>
-                      <div className="space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleEdit(category)}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDelete(category.id)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold mb-8">Category Management</h1>
+        {!isLoading && (
+          <Button
+            variant={showForm ? "outline" : "destructive"}
+            onClick={() => {
+              form.reset(initialValues);
+              setShowForm((prev) => !prev);
+            }}
+          >
+            {showForm ? "Back To Categories" : "Add Category"}
+          </Button>
+        )}
       </div>
+      {isLoading ? (
+        <div className="flex flex-1 items-center justify-center min-h-80">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-8">
+          {showForm ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {editingCategory ? "Edit Category" : "Add New Category"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit} className="space-y-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="parent"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Parent Category</FormLabel>
+                          <FormControl>
+                            <SelectInput
+                              options={data?.data?.map((i: Category) => ({
+                                label: getCategoryName(i, data?.data),
+                                value: i.id,
+                              }))}
+                              {...field}
+                              value={field.value!}
+                              onChange={(v) => {
+                                field.onChange({
+                                  target: {
+                                    value: v,
+                                  },
+                                });
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Description</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Provide a detailed description..."
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="h-px bg-gray-200 w-full" />
+                    <FormField
+                      control={form.control}
+                      name="isFeatured"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <FormLabel>Featured</FormLabel>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className=" flex flex-col gap-2">
+                      <Button
+                        type="submit"
+                        variant="destructive"
+                        className="flex-1"
+                        loading={form.isSubmitting}
+                      >
+                        {editingCategory ? "Update Category" : "Add Category"}
+                      </Button>
+
+                      {editingCategory && (
+                        <Button
+                          onClick={() => {
+                            setEditingCategory(null);
+                            form.reset(initialValues);
+                            setShowForm(false);
+                          }}
+                          variant="outline"
+                          className="flex-1"
+                          loading={form.isSubmitting}
+                        >
+                          {"Cancel Editing"}
+                        </Button>
+                      )}
+                    </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          ) : (
+            <CategoryTable
+              categories={data?.data || []}
+              handleEdit={(c) => {
+                setEditingCategory(c);
+                form.reset({
+                  name: c.name,
+                  description: c.description,
+                  parent: c.parent ? c.parent.id : null,
+                  isFeatured: c.isFeatured,
+                });
+                setShowForm(true);
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
-  )
+  );
 }

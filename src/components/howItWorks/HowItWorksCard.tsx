@@ -1,5 +1,3 @@
-// src/components/HowItWorksCard.tsx
-
 import { HowItWorksCardProps } from "@/types/howItwork";
 import React from "react";
 

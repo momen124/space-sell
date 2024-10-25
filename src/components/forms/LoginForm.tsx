@@ -8,28 +8,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginSchema, LoginSchemaType } from "@/schema/loginSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
+import { useForms } from "@/hooks/useForms/useForms";
+import { loginSchema } from "@/schema/loginSchema";
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 
 export function LoginForm() {
-  const form = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
+
+  const { signIn, isSigningIn } = useAuth()
+
+  const form = useForms({
+    validationSchema: loginSchema,
+    initialValues: {
       email: "",
       password: "",
+      userType: "user",
     },
+    onSubmit: signIn
   });
-
-  const onSubmit: SubmitHandler<LoginSchemaType> = (values) =>{
-    console.log(values);
-  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit} className="space-y-6">
         <FormField
           control={form.control}
           name="email"
@@ -56,7 +57,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full bg-red-600 text-white hover:bg-red-700">
+        <Button type="submit" className="w-full bg-red-600 text-white hover:bg-red-700" loading={isSigningIn}>
           Sign In
         </Button>
         <Button 

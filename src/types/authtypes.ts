@@ -1,5 +1,7 @@
 // types.ts
 
+import { User } from "./user";
+
 export interface LoginFormInputs {
   email: string;
   password: string;
@@ -16,9 +18,6 @@ export interface RegisterFormData {
   password: string;
   confirmPassword: string;
 }
-
-
-
 
 export interface IconProps {
   className?: string;
@@ -39,19 +38,12 @@ export interface HowItWorksItem {
   description: string;
 }
 
-declare module '@/components/ui/badge' {
+declare module "@/components/ui/badge" {
   export interface BadgeProps {
-    variant?: 'default' | 'warning' | 'destructive';
+    variant?: "default" | "warning" | "destructive";
   }
 
   export const Badge: React.FC<BadgeProps>;
-}
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  joinDate: string;
 }
 
 export interface ChatRoom {

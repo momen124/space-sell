@@ -1,9 +1,8 @@
-// src/types/schemas/registerSchema.ts
-import * as z from "zod";
+import { z } from "zod";
 
 export const registerSchema = z
   .object({
-    name: z.string().min(1, {
+    fullName: z.string().min(1, {
       message: "Name is required.",
     }),
     email: z.string().email({
@@ -13,6 +12,7 @@ export const registerSchema = z
       message: "Password must be at least 8 characters.",
     }),
     confirmPassword: z.string(),
+    birthDate: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",

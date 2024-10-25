@@ -7,6 +7,7 @@ export const loginSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",
   }),
+  userType: z.optional(z.enum(["admin", "user"])),
 });
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;

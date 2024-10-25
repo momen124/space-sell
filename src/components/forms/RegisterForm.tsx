@@ -8,57 +8,61 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { registerSchema, RegisterSchemaType } from "@/schema/registerSchema";
+import { useForms } from "@/hooks/useForms/useForms";
+import { useMutation } from "@/hooks/useMutation";
+import { modals } from "@/packages/modals";
+import { registerSchema } from "@/schema/registerSchema";
 import { authService } from "@/service/authService";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { FaGoogle } from "react-icons/fa";
 
 export function RegisterForm() {
-  const form = useForm({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const router = useRouter()
 
   const { mutate: register, isPending: isPendingRegister } = useMutation({
     mutationFn: authService.register,
+    onSuccess: async () => {
+      modals.open({
+        id: "",
+        title: "Registration Successful",
+        subTitle: "Please check your email to verify your account",
+        primaryButtonAction() {
+          router.push(`/auth/login`);
+        },
+      })
+    }
   });
-  const { mutate: verify, isPending: isPendingVerify } = useMutation({
+  const { mutateAsync: verify, isPending: isPendingVerify } = useMutation({
     mutationFn: authService.verify,
-    onSuccess: (payload) => {
-      register(payload);
+    onSuccess: async (payload) => {
+       register(payload);
     },
   });
 
-  const onSubmit: SubmitHandler<RegisterSchemaType> = (values) => {
-    console.log(values)
-    verify(values);
-  };
-  const watchedValues = form.watch(); // This will watch all the fields
-
-  useEffect(() => {
-    console.log(watchedValues); // Log the values whenever they change
-  }, [watchedValues]);
+  const form = useForms({
+    onSubmit: verify,
+    validationSchema: registerSchema,
+    initialValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      birthDate: new Date().toISOString(),
+    },
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(authService.verify)} className="space-y-6">
+      <form onSubmit={form.handleSubmit} className="space-y-6">
         <FormField
           control={form.control}
-          name="name"
+          name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your name" {...field} onChange={(e) => {console.log(e.target.value); field.onChange(e)}} />
+                <Input placeholder="Enter your name" {...field} onChange={(e) => {field.onChange(e)}} />
               </FormControl>
               <FormMessage />
             </FormItem>
