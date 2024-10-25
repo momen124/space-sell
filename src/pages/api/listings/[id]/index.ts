@@ -16,7 +16,7 @@ export default async function handler(
           res,
         });
         const { data, status } = await axios.get(
-          `/listings/details/${req.query.id}`,
+          `/listings/${req.query.id}`,
           {
             params: { ...req.query },
           }
